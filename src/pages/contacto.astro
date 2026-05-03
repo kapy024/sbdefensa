@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Contact from "../components/Contact.astro";
+---
+
+<Layout
+  title="Contacto"
+  canonicalPath="/contacto/"
+  description="Contacta a SBDefensa para una valoración inicial sin costo. Atendemos a contribuyentes y empresas en toda la República Mexicana."
+>
+  <section class="bg-ink text-bone py-20">
+    <div class="container-prose max-w-3xl">
+      <p class="eyebrow text-gold-light mb-4">Contacto</p>
+      <h1 class="text-bone text-5xl md:text-6xl mb-6 leading-tight">
+        Hablemos<br />
+        <span class="italic text-gold">de tu caso.</span>
+      </h1>
+      <p class="text-bone/80 leading-relaxed text-lg">
+        Una llamada o un mensaje pueden marcar la diferencia entre una
+        defensa oportuna y una resolución firme. Contáctanos por el medio
+        que prefieras.
+      </p>
+    </div>
+  </section>
+
+  <Contact compact />
+</Layout>

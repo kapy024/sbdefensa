@@ -1,0 +1,24 @@
+---
+import { audiences } from "../data/site";
+---
+
+<section class="py-20 bg-ink text-bone">
+  <div class="container-prose">
+    <div class="max-w-2xl mb-12">
+      <p class="eyebrow text-gold-light mb-3">A quién acompañamos</p>
+      <h2 class="text-4xl md:text-5xl text-bone">
+        Personas, empresas y comercio internacional.
+      </h2>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      {audiences.map((a) => (
+        <div class="border-t border-gold pt-6">
+          <div class="text-3xl mb-4">{a.icon}</div>
+          <h3 class="text-2xl text-bone mb-3">{a.name}</h3>
+          <p class="text-bone/70 text-sm leading-relaxed">{a.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

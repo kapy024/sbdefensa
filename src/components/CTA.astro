@@ -1,0 +1,35 @@
+---
+import { site } from "../data/site";
+---
+
+<section class="py-20">
+  <div class="container-prose">
+    <div class="bg-ink text-bone p-12 lg:p-16 relative overflow-hidden">
+      <div class="absolute -top-32 -right-32 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative max-w-3xl">
+        <p class="eyebrow text-gold-light mb-4">¿Tienes un asunto urgente?</p>
+        <h2 class="text-4xl md:text-5xl text-bone mb-6 leading-tight">
+          Los plazos para impugnar son fatales.<br />
+          <span class="italic text-gold">No los dejes correr.</span>
+        </h2>
+        <p class="text-bone/80 leading-relaxed mb-8 text-lg max-w-xl">
+          Si recibiste una notificación del SAT, IMSS, INFONAVIT o aduana,
+          contáctanos cuanto antes. La primera valoración es sin costo.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/contacto/" class="btn-primary bg-gold-dark border-gold-dark hover:bg-gold hover:border-gold hover:text-ink">
+            Solicita asesoría
+          </a>
+          <a
+            href={`https://wa.me/${site.whatsapp}`}
+            target="_blank"
+            rel="noopener"
+            class="btn-secondary border-bone text-bone hover:bg-bone hover:text-ink"
+          >
+            WhatsApp directo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

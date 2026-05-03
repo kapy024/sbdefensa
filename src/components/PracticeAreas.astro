@@ -1,0 +1,33 @@
+---
+import { services } from "../data/site";
+---
+
+<section id="servicios" class="py-20">
+  <div class="container-prose">
+    <div class="max-w-2xl mb-12">
+      <p class="eyebrow mb-3">Áreas de práctica</p>
+      <h2 class="text-4xl md:text-5xl mb-4">Defensa integral bajo un mismo techo.</h2>
+      <p class="text-slate">
+        Atendemos los frentes en los que se enfrenta la operación cotidiana de
+        contribuyentes y empresas: del SAT a la aduana, de la propiedad
+        industrial al cumplimiento contable.
+      </p>
+    </div>
+
+    <div class="grid gap-px bg-mist md:grid-cols-2 lg:grid-cols-4 border border-mist">
+      {services.map((s) => (
+        <a
+          href={`/servicios/${s.slug}/`}
+          class="group bg-bone p-7 hover:bg-bone-warm transition-colors flex flex-col"
+        >
+          <div class="text-3xl mb-4">{s.icon}</div>
+          <h3 class="text-xl mb-2 group-hover:text-gold-dark transition-colors">{s.name}</h3>
+          <p class="text-sm text-slate leading-relaxed flex-1">{s.short}</p>
+          <div class="mt-5 text-xs uppercase tracking-wider text-gold-dark font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+            Ver servicio →
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

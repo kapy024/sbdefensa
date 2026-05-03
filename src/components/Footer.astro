@@ -1,0 +1,78 @@
+---
+import { site, services } from "../data/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink text-bone mt-24">
+  <div class="container-prose py-16 grid gap-10 md:grid-cols-4">
+    <div class="md:col-span-1">
+      <img src="/logo.png" alt={site.legalName} class="h-12 w-auto invert mb-4" />
+      <p class="text-sm text-bone/70 leading-relaxed">
+        {site.legalName}. Firma fundada en {site.foundedYear}.
+      </p>
+      <p class="text-xs text-bone/50 mt-4">{site.coverage}</p>
+    </div>
+
+    <div>
+      <h3 class="text-bone text-sm font-semibold tracking-wider uppercase mb-4">Servicios</h3>
+      <ul class="space-y-2 text-sm text-bone/70">
+        {services.slice(0, 4).map((s) => (
+          <li>
+            <a href={`/servicios/${s.slug}/`} class="hover:text-gold transition-colors">
+              {s.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-bone text-sm font-semibold tracking-wider uppercase mb-4">Más</h3>
+      <ul class="space-y-2 text-sm text-bone/70">
+        {services.slice(4).map((s) => (
+          <li>
+            <a href={`/servicios/${s.slug}/`} class="hover:text-gold transition-colors">
+              {s.name}
+            </a>
+          </li>
+        ))}
+        <li class="pt-2 border-t border-bone/10 mt-2">
+          <a href="/nosotros/" class="hover:text-gold transition-colors">Nosotros</a>
+        </li>
+        <li>
+          <a href="/contacto/" class="hover:text-gold transition-colors">Contacto</a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-bone text-sm font-semibold tracking-wider uppercase mb-4">Contacto</h3>
+      <ul class="space-y-2 text-sm text-bone/70">
+        <li>
+          <a href={`mailto:${site.email}`} class="hover:text-gold transition-colors break-all">
+            {site.email}
+          </a>
+        </li>
+        {site.phones.map((p) => (
+          <li>
+            <a href={`tel:+52${p.tel}`} class="hover:text-gold transition-colors">
+              {p.label}: {p.number}
+            </a>
+          </li>
+        ))}
+        <li class="pt-2 text-bone/50">{site.location}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-bone/10">
+    <div class="container-prose py-6 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center text-xs text-bone/50">
+      <p>© {year} {site.legalName}. Todos los derechos reservados.</p>
+      <div class="flex gap-6">
+        <a href="/aviso-de-privacidad/" class="hover:text-gold transition-colors">
+          Aviso de Privacidad
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

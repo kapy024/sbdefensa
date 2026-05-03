@@ -1,0 +1,142 @@
+---
+import { site, services } from "../data/site";
+
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<section id="contacto" class={compact ? "py-16" : "py-20"}>
+  <div class="container-prose grid gap-12 lg:grid-cols-2">
+    <div>
+      <p class="eyebrow mb-3">Contacto</p>
+      <h2 class="text-4xl md:text-5xl mb-5">Conversemos tu caso.</h2>
+      <p class="text-slate leading-relaxed mb-8 max-w-md">
+        Cuéntanos brevemente tu situación y te respondemos con una valoración
+        inicial sin costo. Atendemos en toda la República Mexicana.
+      </p>
+
+      <div class="space-y-5 text-sm">
+        <div>
+          <p class="eyebrow mb-2">Correo</p>
+          <a href={`mailto:${site.email}`} class="hover:text-gold-dark transition-colors break-all">
+            {site.email}
+          </a>
+        </div>
+        <div>
+          <p class="eyebrow mb-2">Teléfonos</p>
+          <ul class="space-y-1">
+            {site.phones.map((p) => (
+              <li>
+                <a href={`tel:+52${p.tel}`} class="hover:text-gold-dark transition-colors">
+                  <span class="text-slate">{p.label}:</span> {p.number}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow mb-2">WhatsApp</p>
+          <a
+            href={`https://wa.me/${site.whatsapp}`}
+            target="_blank"
+            rel="noopener"
+            class="hover:text-gold-dark transition-colors"
+          >
+            Escríbenos directo
+          </a>
+        </div>
+        <div>
+          <p class="eyebrow mb-2">Ubicación</p>
+          <p>{site.location}</p>
+        </div>
+      </div>
+    </div>
+
+    <form
+      action={`mailto:${site.email}`}
+      method="post"
+      enctype="text/plain"
+      class="bg-bone-warm p-8 lg:p-10 space-y-5"
+    >
+      <div>
+        <label for="nombre" class="block text-xs uppercase tracking-wider font-semibold mb-2">
+          Nombre completo
+        </label>
+        <input
+          id="nombre"
+          name="nombre"
+          required
+          class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors"
+        />
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="email" class="block text-xs uppercase tracking-wider font-semibold mb-2">
+            Correo
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors"
+          />
+        </div>
+        <div>
+          <label for="telefono" class="block text-xs uppercase tracking-wider font-semibold mb-2">
+            Teléfono
+          </label>
+          <input
+            id="telefono"
+            name="telefono"
+            type="tel"
+            class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="area" class="block text-xs uppercase tracking-wider font-semibold mb-2">
+          Área de interés
+        </label>
+        <select
+          id="area"
+          name="area"
+          class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors"
+        >
+          <option value="">Selecciona una opción</option>
+          {services.map((s) => (
+            <option value={s.name}>{s.name}</option>
+          ))}
+          <option value="otro">Otro / no estoy seguro</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="mensaje" class="block text-xs uppercase tracking-wider font-semibold mb-2">
+          Cuéntanos tu caso
+        </label>
+        <textarea
+          id="mensaje"
+          name="mensaje"
+          rows="5"
+          required
+          class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors resize-none"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary w-full justify-center">
+        Enviar solicitud
+      </button>
+      <p class="text-xs text-slate text-center">
+        Al enviar aceptas nuestro
+        <a href="/aviso-de-privacidad/" class="underline hover:text-gold-dark">
+          Aviso de Privacidad
+        </a>.
+      </p>
+    </form>
+  </div>
+</section>

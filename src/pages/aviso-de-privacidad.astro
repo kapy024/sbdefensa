@@ -1,0 +1,70 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+---
+
+<Layout
+  title="Aviso de Privacidad"
+  description={`Aviso de Privacidad de ${site.legalName}.`}
+  canonicalPath="/aviso-de-privacidad/"
+>
+  <article class="container-prose max-w-3xl py-20 prose-content">
+    <p class="eyebrow mb-3">Documento legal</p>
+    <h1 class="text-4xl md:text-5xl mb-8">Aviso de Privacidad</h1>
+    <div class="gold-rule mb-10 max-w-md"></div>
+
+    <div class="space-y-6 text-ink leading-relaxed">
+      <p>
+        <strong>{site.legalName}</strong> ("SBDefensa", "nosotros") es responsable
+        del tratamiento de los datos personales que usted nos proporciona y los
+        protege conforme a la Ley Federal de Protección de Datos Personales en
+        Posesión de los Particulares.
+      </p>
+
+      <h2 class="text-2xl mt-10 mb-3">Datos que recabamos</h2>
+      <p>
+        Recabamos datos de identificación y contacto (nombre, correo electrónico,
+        teléfono) y, en su caso, datos relativos a su situación fiscal, contable
+        o legal estrictamente necesarios para evaluar y atender su asunto.
+      </p>
+
+      <h2 class="text-2xl mt-10 mb-3">Finalidades del tratamiento</h2>
+      <p>Sus datos serán tratados para las siguientes finalidades:</p>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Atender solicitudes de asesoría y contacto inicial.</li>
+        <li>Evaluar y, en su caso, ejecutar la prestación de nuestros servicios profesionales.</li>
+        <li>Mantener comunicación durante la relación profesional.</li>
+        <li>Cumplir obligaciones legales y fiscales aplicables al despacho.</li>
+      </ul>
+
+      <h2 class="text-2xl mt-10 mb-3">Transferencias</h2>
+      <p>
+        No transferimos sus datos personales a terceros sin su consentimiento,
+        salvo en los supuestos previstos por la ley o cuando sea necesario para
+        la atención de su asunto ante autoridades fiscales, administrativas o
+        judiciales.
+      </p>
+
+      <h2 class="text-2xl mt-10 mb-3">Derechos ARCO</h2>
+      <p>
+        Usted tiene derecho a acceder, rectificar, cancelar u oponerse al
+        tratamiento de sus datos personales, así como a revocar el consentimiento
+        otorgado. Para ejercer estos derechos envíe una solicitud al correo
+        <a href={`mailto:${site.email}`} class="underline hover:text-gold-dark">{site.email}</a>.
+      </p>
+
+      <h2 class="text-2xl mt-10 mb-3">Cambios al aviso</h2>
+      <p>
+        Cualquier modificación a este aviso se publicará en este mismo sitio.
+      </p>
+
+      <p class="text-sm text-slate mt-10 pt-6 border-t border-mist">
+        Última actualización: {new Date().toLocaleDateString("es-MX", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}.
+      </p>
+    </div>
+  </article>
+</Layout>

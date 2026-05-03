@@ -1,0 +1,22 @@
+---
+import { differentiators } from "../data/site";
+---
+
+<section class="py-20 bg-bone-warm">
+  <div class="container-prose">
+    <div class="max-w-2xl mb-12">
+      <p class="eyebrow mb-3">Por qué SBDefensa</p>
+      <h2 class="text-4xl md:text-5xl">Una firma con respaldo institucional.</h2>
+    </div>
+
+    <div class="grid gap-px bg-mist md:grid-cols-3 border border-mist">
+      {differentiators.map((d) => (
+        <div class="bg-bone p-8 lg:p-10">
+          <div class="w-10 h-px bg-gold mb-5"></div>
+          <h3 class="text-2xl mb-3">{d.title}</h3>
+          <p class="text-slate text-sm leading-relaxed">{d.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

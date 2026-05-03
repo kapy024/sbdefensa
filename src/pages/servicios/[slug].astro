@@ -1,0 +1,93 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CTA from "../../components/CTA.astro";
+import { services, site } from "../../data/site";
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug).slice(0, 4);
+---
+
+<Layout
+  title={service.name}
+  description={service.short}
+  canonicalPath={`/servicios/${service.slug}/`}
+>
+  <section class="bg-ink text-bone py-20">
+    <div class="container-prose max-w-4xl">
+      <a href="/#servicios" class="text-gold-light text-xs uppercase tracking-wider hover:text-gold transition-colors">
+        ← Áreas de práctica
+      </a>
+      <div class="text-5xl mt-6 mb-4">{service.icon}</div>
+      <p class="eyebrow text-gold-light mb-3">Servicio</p>
+      <h1 class="text-5xl md:text-6xl text-bone leading-tight mb-6">{service.name}</h1>
+      <p class="text-bone/80 text-lg leading-relaxed max-w-2xl">{service.short}</p>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="container-prose grid gap-12 lg:grid-cols-3">
+      <div class="lg:col-span-2">
+        <p class="eyebrow mb-4">Qué incluye</p>
+        <h2 class="text-4xl mb-8">Alcance del servicio.</h2>
+        <ul class="space-y-4">
+          {service.bullets.map((b) => (
+            <li class="flex gap-4 pb-4 border-b border-mist">
+              <span class="text-gold-dark mt-1 shrink-0">▪</span>
+              <span class="text-ink leading-relaxed">{b}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-12 p-8 bg-bone-warm">
+          <h3 class="text-2xl mb-3">¿Listo para empezar?</h3>
+          <p class="text-slate mb-6 leading-relaxed">
+            Cuéntanos los detalles de tu caso. Te respondemos con una valoración
+            inicial y propuesta económica clara antes de iniciar.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/contacto/" class="btn-primary">Solicita asesoría</a>
+            <a
+              href={`https://wa.me/${site.whatsapp}`}
+              target="_blank"
+              rel="noopener"
+              class="btn-secondary"
+            >
+              WhatsApp directo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-1">
+        <div class="sticky top-24">
+          <p class="eyebrow mb-4">Otros servicios</p>
+          <ul class="space-y-1">
+            {others.map((s) => (
+              <li>
+                <a
+                  href={`/servicios/${s.slug}/`}
+                  class="flex items-start gap-3 p-3 -mx-3 hover:bg-bone-warm transition-colors"
+                >
+                  <span class="text-xl leading-none mt-0.5">{s.icon}</span>
+                  <div>
+                    <div class="font-medium text-sm">{s.name}</div>
+                    <div class="text-xs text-slate mt-1 leading-snug">{s.short}</div>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>

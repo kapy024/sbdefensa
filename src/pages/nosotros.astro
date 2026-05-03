@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Team from "../components/Team.astro";
+import CTA from "../components/CTA.astro";
+import { site } from "../data/site";
+---
+
+<Layout
+  title="Nosotros"
+  canonicalPath="/nosotros/"
+  description={`${site.legalName}: firma fiscal y contable fundada en ${site.foundedYear} con dirección integrada por ex-PRODECON y ex-TFJFA.`}
+>
+  <section class="bg-ink text-bone py-20">
+    <div class="container-prose max-w-3xl">
+      <p class="eyebrow text-gold-light mb-4">Nosotros</p>
+      <h1 class="text-bone text-5xl md:text-6xl mb-6 leading-tight">
+        Una firma con respaldo institucional,<br />
+        <span class="italic text-gold">criterio y oficio.</span>
+      </h1>
+      <p class="text-bone/80 leading-relaxed text-lg">
+        SBDefensa —Sámano Burkolter, Defensa Fiscal & Contable— se fundó en {site.foundedYear}
+        con un objetivo claro: poner al alcance de personas y empresas una defensa
+        legal y contable construida con la misma seriedad que la administración
+        pública exige a sus contribuyentes.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="container-prose grid gap-12 lg:grid-cols-3">
+      <div>
+        <p class="eyebrow mb-3">Misión</p>
+        <h2 class="text-2xl mb-4">Defender con estrategia.</h2>
+        <p class="text-slate text-sm leading-relaxed">
+          Acompañar a contribuyentes y empresariado en la defensa de sus
+          derechos frente a las autoridades fiscales, administrativas, aduaneras
+          y de seguridad social, con criterio técnico y compromiso ético.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">Visión</p>
+        <h2 class="text-2xl mb-4">Referente en la región norte.</h2>
+        <p class="text-slate text-sm leading-relaxed">
+          Consolidarnos como una firma de referencia en defensa fiscal y
+          contable a nivel nacional, especialmente en la región norte de
+          México, manteniendo cercanía con cada cliente.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">Valores</p>
+        <h2 class="text-2xl mb-4">Lo que no negociamos.</h2>
+        <ul class="text-slate text-sm leading-relaxed space-y-2">
+          <li>· Integridad y reserva profesional</li>
+          <li>· Estrategia clara antes de actuar</li>
+          <li>· Comunicación franca con el cliente</li>
+          <li>· Honorarios transparentes</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Team detailed />
+  <CTA />
+</Layout>
