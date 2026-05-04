@@ -9,7 +9,7 @@ export const site = {
   email: "defensa.fiscal@sbdefensa.com.mx",
   whatsapp: "5216141938650",
   whatsappDisplay: "614-193-86-50",
-  location: "CDMX, Chihuahua y Guadalajara",
+  location: "CDMX, Chihuahua, Guadalajara y Sinaloa",
   coverage: "Cobertura nacional",
 } as const;
 
@@ -22,7 +22,7 @@ export const services = [
     featured: true,
     bullets: [
       "Juicios de Nulidad ante el Tribunal Federal de Justicia Administrativa",
-      "Recursos de Revocación ante el SAT a nivel nacional",
+      "Recursos de Revocación ante autoridades fiscales",
       "Juicios de Amparo ante Juzgados de Distrito, Tribunales Colegiados y SCJN",
       "Atención a visitas domiciliarias, revisiones de gabinete y revisiones electrónicas",
       "Procedimiento Administrativo de Ejecución (PAE) e impugnaciones",
@@ -89,7 +89,7 @@ export const services = [
       "Constitución de asociaciones civiles",
       "Reestructura de sociedades (objetos sociales y accionaria)",
       "Planificación de fusión, escisión y liquidación",
-      "Elaboración de actas de asamblea ordinarias y extraordinarias",
+      "Elaboración de actas de asamblea ordinarias y extraordinarias, así como de libros societarios",
       "Registro ante la STPS (actividades especializadas, ex-outsourcing)",
     ],
   },
@@ -199,7 +199,7 @@ export const differentiators = [
   },
   {
     title: "Cobertura nacional",
-    desc: "Atendemos a contribuyentes en toda la República Mexicana, con presencia en CDMX, Chihuahua y Guadalajara, con cobertura nacional.",
+    desc: "Atendemos a contribuyentes en toda la República Mexicana, con presencia en CDMX, Chihuahua, Guadalajara y Sinaloa, con cobertura nacional.",
   },
   {
     title: "Defensa integral",
@@ -213,8 +213,8 @@ export const faq = [
     a: "Agenda una llamada o reunión por nuestro formulario de contacto o vía WhatsApp. La primera valoración del caso es sin costo y nos permite entender el alcance del asunto antes de proponer una estrategia.",
   },
   {
-    q: "¿Atienden casos fuera de CDMX, Chihuahua y Guadalajara?",
-    a: "Sí. Litigamos a nivel nacional ante el SAT, IMSS, INFONAVIT, IMPI, autoridades aduaneras y tribunales federales. La presencia física es en CDMX, Chihuahua y Guadalajara, pero la representación legal aplica en toda la República Mexicana.",
+    q: "¿Atienden casos fuera de CDMX, Chihuahua, Guadalajara y Sinaloa?",
+    a: "Sí. Litigamos a nivel nacional ante el SAT, IMSS, INFONAVIT, IMPI, autoridades aduaneras y tribunales federales. La presencia física es en Chihuahua, Sinaloa, Guadalajara y CDMX, pero la representación legal aplica en toda la República Mexicana.",
   },
   {
     q: "¿Cuál es el costo del servicio?",
