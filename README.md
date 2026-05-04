@@ -47,4 +47,34 @@ Editar `site.ts` y `npm run build` para regenerar.
 
 ## Despliegue
 
-Sitio estático. Compatible con Vercel, Netlify, Cloudflare Pages u hosting tradicional.
+Sitio estático servido desde HostGator (`public_html/`). Cada push a `main` dispara el workflow `.github/workflows/deploy.yml` que compila y sube por FTPS vía [SamKirkland/FTP-Deploy-Action](https://github.com/SamKirkland/FTP-Deploy-Action).
+
+### Secrets requeridos (Settings → Secrets and variables → Actions → Secrets)
+
+| Secret | Valor |
+|---|---|
+| `FTP_SERVER` | host FTP de HostGator (p.ej. `ftp.sbdefensa.com.mx` o `gator####.hostgator.com`) |
+| `FTP_USERNAME` | usuario FTP creado en cPanel |
+| `FTP_PASSWORD` | contraseña del usuario FTP |
+
+### Variables opcionales (Settings → Secrets and variables → Actions → Variables)
+
+| Variable | Default | Cuándo cambiar |
+|---|---|---|
+| `FTP_PROTOCOL` | `ftps` | Pasar a `ftp` solo si HostGator no soporta TLS en el plan |
+| `FTP_PORT` | `21` | Cambiar a `22` si se usa SFTP en lugar de FTPS |
+| `FTP_SERVER_DIR` | `/public_html/` | Cambiar si el dominio es addon (p.ej. `/public_html/sbdefensa.com.mx/`) |
+
+### Deploy manual de respaldo
+
+```sh
+npm run build
+cd dist && zip -r ../sbdefensa-deploy.zip . && cd ..
+# subir sbdefensa-deploy.zip a public_html/ vía cPanel File Manager y descomprimir
+```
+
+Los archivos deben quedar con permisos `644` y los directorios `755`. Si subes desde macOS y ves 403, ajusta perms desde cPanel.
+
+## Agentes (Claude Code)
+
+`.claude/agents/content-editor.md` — agente especializado en edición de copy en español. Úsalo cuando haya cambios de redacción en `src/data/site.ts`, FAQs, descripciones de servicios o bios del equipo. No toca layout ni configuración.
