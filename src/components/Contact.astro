@@ -25,18 +25,6 @@ const { compact = false } = Astro.props;
           </a>
         </div>
         <div>
-          <p class="eyebrow mb-2">Teléfonos</p>
-          <ul class="space-y-1">
-            {site.phones.map((p) => (
-              <li>
-                <a href={`tel:+52${p.tel}`} class="hover:text-gold-dark transition-colors">
-                  <span class="text-slate">{p.label}:</span> {p.number}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
           <p class="eyebrow mb-2">WhatsApp</p>
           <a
             href={`https://wa.me/${site.whatsapp}`}
@@ -44,11 +32,11 @@ const { compact = false } = Astro.props;
             rel="noopener"
             class="hover:text-gold-dark transition-colors"
           >
-            Escríbenos directo
+            {site.whatsappDisplay} — Escríbenos directo
           </a>
         </div>
         <div>
-          <p class="eyebrow mb-2">Ubicación</p>
+          <p class="eyebrow mb-2">Presencia en</p>
           <p>{site.location}</p>
         </div>
       </div>

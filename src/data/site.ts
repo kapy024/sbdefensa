@@ -7,13 +7,9 @@ export const site = {
     "Firma legal y contable que defiende a contribuyentes y empresariado en temas fiscales, societarios, administrativos y de propiedad industrial a nivel nacional.",
   url: "https://sbdefensa.com.mx",
   email: "defensa.fiscal@sbdefensa.com.mx",
-  phones: [
-    { label: "CDMX", number: "555-101-28-10", tel: "5551012810" },
-    { label: "Chihuahua", number: "614-193-86-50", tel: "6141938650" },
-  ],
-  primaryPhone: "6141938650",
   whatsapp: "5216141938650",
-  location: "Chihuahua, Chihuahua, México",
+  whatsappDisplay: "614-193-86-50",
+  location: "CDMX, Chihuahua y Guadalajara",
   coverage: "Cobertura nacional",
 } as const;
 
@@ -203,7 +199,7 @@ export const differentiators = [
   },
   {
     title: "Cobertura nacional",
-    desc: "Atendemos a contribuyentes en toda la República, con presencia en CDMX y Chihuahua y litigio ante autoridades federales.",
+    desc: "Atendemos a contribuyentes en toda la República Mexicana, con presencia en CDMX, Chihuahua y Guadalajara, con cobertura nacional.",
   },
   {
     title: "Defensa integral",
@@ -217,8 +213,8 @@ export const faq = [
     a: "Agenda una llamada o reunión por nuestro formulario de contacto o vía WhatsApp. La primera valoración del caso es sin costo y nos permite entender el alcance del asunto antes de proponer una estrategia.",
   },
   {
-    q: "¿Atienden casos fuera de Chihuahua y CDMX?",
-    a: "Sí. Litigamos a nivel nacional ante el SAT, IMSS, INFONAVIT, IMPI, autoridades aduaneras y tribunales federales. La presencia física es en CDMX y Chihuahua, pero la representación legal aplica en todo el país.",
+    q: "¿Atienden casos fuera de CDMX, Chihuahua y Guadalajara?",
+    a: "Sí. Litigamos a nivel nacional ante el SAT, IMSS, INFONAVIT, IMPI, autoridades aduaneras y tribunales federales. La presencia física es en CDMX, Chihuahua y Guadalajara, pero la representación legal aplica en toda la República Mexicana.",
   },
   {
     q: "¿Cuál es el costo del servicio?",

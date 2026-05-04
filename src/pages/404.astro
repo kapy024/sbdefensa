@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Página no encontrada" canonicalPath="/404/">
+  <section class="container-prose py-24 lg:py-32 text-center">
+    <img
+      src="/logo.png"
+      alt="SBDefensa"
+      class="mx-auto h-24 w-auto mb-8 opacity-90"
+      width="200"
+      height="200"
+    />
+    <p class="eyebrow text-slate mb-4">Error 404</p>
+    <h1 class="font-serif text-4xl lg:text-5xl text-ink mb-6">
+      Página no encontrada
+    </h1>
+    <p class="text-slate mb-10 max-w-xl mx-auto">
+      La página que buscas no existe o fue movida. Te invitamos a volver al
+      inicio o explorar nuestros servicios.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="/" class="btn-primary">Volver al inicio</a>
+      <a href="/contacto/" class="btn-secondary">Contáctanos</a>
+    </div>
+  </section>
+</Layout>

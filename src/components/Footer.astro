@@ -53,13 +53,16 @@ const year = new Date().getFullYear();
             {site.email}
           </a>
         </li>
-        {site.phones.map((p) => (
-          <li>
-            <a href={`tel:+52${p.tel}`} class="hover:text-gold transition-colors">
-              {p.label}: {p.number}
-            </a>
-          </li>
-        ))}
+        <li>
+          <a
+            href={`https://wa.me/${site.whatsapp}`}
+            target="_blank"
+            rel="noopener"
+            class="hover:text-gold transition-colors"
+          >
+            WhatsApp: {site.whatsappDisplay}
+          </a>
+        </li>
         <li class="pt-2 text-bone/50">{site.location}</li>
       </ul>
     </div>
