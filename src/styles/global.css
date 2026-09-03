@@ -36,8 +36,8 @@
   --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --text-display: clamp(3.25rem, 1.4rem + 7.6vw, 8.5rem);
-  --text-display--line-height: 0.92;
+  --text-display: clamp(3rem, 1.3rem + 6.2vw, 7rem);
+  --text-display--line-height: 1.02;
   --text-h1: clamp(2.5rem, 1.5rem + 3.8vw, 4.75rem);
   --text-h1--line-height: 1;
   --text-h2: clamp(2rem, 1.35rem + 2.6vw, 3.5rem);

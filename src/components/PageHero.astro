@@ -1,45 +1,54 @@
 ---
-/** Masthead de páginas internas: papel con malla, no bloque de tinta. */
+/** Masthead de páginas internas: misma fotografía a sangre y duotono verde
+ *  que el hero de inicio, más corto. Unsplash "grand stone columns, classical interior". */
 interface Props {
   eyebrow: string;
   index?: string;
   back?: { href: string; label: string };
+  image?: string;
 }
-const { eyebrow, index, back } = Astro.props;
+const {
+  eyebrow, index, back,
+  image = "https://images.unsplash.com/photo-1775144657294-8b170edbb526?auto=format&fit=crop&w=2400&q=72",
+} = Astro.props;
 ---
 
-<section class="relative overflow-hidden border-b border-ink/10">
-  <div class="absolute inset-0 -z-10 paper-panel"></div>
-  <div
-    class="aura absolute -z-10 -top-40 right-[-8rem] w-[40rem] h-[40rem] rounded-full blur-3xl pointer-events-none"
-    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-bronze) 30%, transparent) 0%, transparent 68%);"
-  >
-  </div>
+<section class="relative isolate overflow-hidden bg-ink text-paper">
+  <figure class="absolute inset-0 -z-10 m-0" aria-hidden="true">
+    <img
+      src={image}
+      alt=""
+      width="2400"
+      height="1400"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="h-full w-full object-cover object-center grayscale contrast-[1.08] brightness-[0.9]"
+    />
+    <div class="absolute inset-0 bg-forest mix-blend-color"></div>
+    <div class="absolute inset-0 bg-ink mix-blend-multiply opacity-40"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,var(--color-ink)_0%,color-mix(in_srgb,var(--color-ink)_70%,transparent)_35%,transparent_75%)]"></div>
+  </figure>
 
-  <div class="shell relative pt-14 pb-16 lg:pt-20 lg:pb-24">
+  <div class="shell relative pt-28 pb-14 lg:pt-36 lg:pb-20">
     {back && (
-      <a
-        href={back.href}
-        class="link-line inline-flex items-center gap-2 text-[0.6875rem] uppercase tracking-[0.18em] text-bronze-ink font-semibold mb-10"
-      >
+      <a href={back.href} class="link-line inline-flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-bronze-light mb-10">
         <span aria-hidden="true">&larr;</span> {back.label}
       </a>
     )}
 
-    <div class="flex items-start justify-between gap-8">
-      <p class="eyebrow mb-7">{eyebrow}</p>
-      {index && (
-        <span class="font-display text-xs tracking-[0.3em] text-slate pt-1">{index}</span>
-      )}
+    <div class="flex items-start justify-between gap-8 mb-6">
+      <p class="font-mono text-[0.75rem] tracking-[0.18em] uppercase text-bronze-light">{eyebrow}</p>
+      {index && <span class="font-mono text-[0.75rem] tracking-[0.2em] text-paper/50">{index}</span>}
     </div>
 
-    <h1 data-split data-split-step="40" class="text-h1 font-light max-w-[18ch] mb-8">
+    <h1 data-split data-split-step="40" class="text-h1 font-display font-normal text-paper max-w-[18ch] mb-8">
       <slot name="title" />
     </h1>
 
-    <div class="rule-bronze mb-8 max-w-sm"></div>
+    <div class="h-px w-full max-w-sm bg-bronze/60 mb-8"></div>
 
-    <div class="text-lead text-slate max-w-[58ch] leading-relaxed">
+    <div class="text-lead text-paper/75 max-w-[58ch] leading-relaxed">
       <slot />
     </div>
   </div>

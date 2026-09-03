@@ -34,7 +34,7 @@ const values = [
   <PageHero eyebrow="Nosotros">
     <span slot="title">
       Una firma con respaldo institucional,
-      <span class="italic text-bronze-ink">criterio y oficio.</span>
+      <span class="italic text-bronze-light">criterio y oficio.</span>
     </span>
     SBDefensa —Sámano Burkolter, Defensa Fiscal & Contable— se fundó en {site.foundedYear}
     con un objetivo claro: poner al alcance de personas y empresas una defensa
@@ -67,26 +67,34 @@ const values = [
     </div>
   </section>
 
-  <section class="py-section-sm bg-parchment">
-    <div class="shell">
-      <div class="flex flex-wrap items-end justify-between gap-8 mb-10" data-reveal>
+  <section class="relative isolate overflow-hidden bg-ink text-paper py-section">
+    <figure class="absolute inset-0 -z-10 m-0" aria-hidden="true">
+      <img
+        src="https://images.unsplash.com/photo-1523292864699-4dcfd824dae2?auto=format&fit=crop&w=2400&q=70"
+        alt="" width="2400" height="1400" loading="lazy" decoding="async"
+        class="h-full w-full object-cover grayscale contrast-[1.08] brightness-[0.85]"
+      />
+      <div class="absolute inset-0 bg-forest mix-blend-color"></div>
+      <div class="absolute inset-0 bg-ink mix-blend-multiply opacity-55"></div>
+    </figure>
+
+    <div class="shell relative">
+      <div class="flex flex-wrap items-end justify-between gap-8 mb-12" data-reveal>
         <div>
-          <p class="eyebrow mb-5">Presencia</p>
-          <h2 class="text-h2 font-light">Cuatro sedes, cobertura nacional.</h2>
+          <p class="font-mono text-[0.75rem] tracking-[0.18em] uppercase text-bronze-light mb-5">Presencia</p>
+          <h2 data-split data-split-step="34" class="text-h2 font-display font-normal text-paper">Cuatro sedes, cobertura nacional.</h2>
         </div>
-        <p class="text-slate max-w-[40ch] text-[0.9375rem] leading-relaxed">
+        <p class="text-paper/70 max-w-[40ch] text-[0.9375rem] leading-relaxed">
           La presencia física está en cuatro ciudades, pero la representación
           legal aplica en toda la República Mexicana.
         </p>
       </div>
 
-      <ul class="grid grid-cols-2 lg:grid-cols-4 hairline-grid" data-reveal-stagger="70">
+      <ul class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-paper/15 border border-paper/15" data-reveal-stagger="70">
         {offices.map((o) => (
-          <li class="bg-parchment p-8 lg:p-10" data-reveal>
-            <p class="font-display text-2xl lg:text-[1.75rem] font-normal mt-5 leading-tight">
-              {o.city}
-            </p>
-            <p class="text-xs uppercase tracking-[0.16em] text-slate mt-2">{o.state}</p>
+          <li class="bg-ink/60 backdrop-blur-sm p-8 lg:p-10" data-reveal>
+            <p class="font-display text-2xl lg:text-[1.9rem] leading-tight">{o.city}</p>
+            <p class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-bronze-light mt-3">{o.state}</p>
           </li>
         ))}
       </ul>

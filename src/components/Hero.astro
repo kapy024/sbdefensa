@@ -104,6 +104,12 @@ const heroImgSm = "https://images.unsplash.com/photo-1519674921880-e784bc34ebd4?
     // Entrada: la foto se asienta y el titular sube línea por línea desde
     // una máscara. SplitText es gratis desde GSAP 3.13.
     const split = SplitText.create(title, { type: "lines", mask: "lines", linesClass: "hero-line" });
+    // La máscara recorta al alto de línea; los descendentes (y, p, g) piden
+    // aire abajo. Se compensa con margen negativo para no abrir la línea.
+    split.masks?.forEach((m) => {
+      m.style.paddingBottom = "0.14em";
+      m.style.marginBottom = "-0.14em";
+    });
     const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
     tl.fromTo(img, { scale: 1.14 }, { scale: 1, duration: 2.2 }, 0)
       .from(split.lines, { yPercent: 110, duration: 1.4, stagger: 0.12 }, 0.25)
