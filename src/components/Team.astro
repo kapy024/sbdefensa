@@ -5,49 +5,63 @@ interface Props {
   detailed?: boolean;
 }
 const { detailed = false } = Astro.props;
+
+const initials = (name: string) =>
+  name.split(" ").slice(0, 2).map((n) => n[0]).join("");
 ---
 
-<section class="py-20">
-  <div class="container-prose">
-    <div class="max-w-2xl mb-12">
-      <p class="eyebrow mb-3">Dirección</p>
-      <h2 class="text-4xl md:text-5xl mb-4">Quienes están detrás del despacho.</h2>
+<section class="py-section">
+  <div class="shell">
+    <div class="max-w-2xl mb-14" data-reveal>
+      <p class="eyebrow mb-5">Dirección</p>
+      <h2 class="text-h2 font-light mb-5">Quienes están detrás del despacho.</h2>
       {!detailed && (
-        <p class="text-slate">
+        <p class="text-slate leading-relaxed max-w-[52ch]">
           La dirección de SBDefensa la conforman dos socios con perfiles
           complementarios en defensa fiscal, contable y administrativa.
         </p>
       )}
     </div>
 
-    <div class="grid gap-10 md:grid-cols-2">
+    <div class="grid gap-8 md:grid-cols-2 items-start" data-reveal-stagger="110">
       {team.map((m) => (
-        <article class="bg-bone-warm p-8 lg:p-10">
-          <div class="aspect-square w-24 bg-ink text-bone flex items-center justify-center mb-6 font-display text-3xl">
-            {m.name.split(" ").slice(0, 2).map((n) => n[0]).join("")}
+        <article class="bg-bone border border-mist p-9 lg:p-11 flex flex-col" data-reveal>
+          <!-- Monogram seal: a printed ex-libris, not a photo placeholder. -->
+          <div class="relative w-20 h-20 mb-8 shrink-0">
+            <div class="absolute inset-0 border border-gold/70"></div>
+            <div class="absolute inset-[5px] border border-gold/35"></div>
+            <span
+              class="absolute inset-0 grid place-items-center font-display text-2xl tracking-[0.06em] text-gold-ink"
+            >
+              {initials(m.name)}
+            </span>
           </div>
-          <h3 class="text-2xl leading-tight mb-1">{m.name}</h3>
-          <p class="eyebrow mb-4">{m.role}</p>
-          <p class="text-sm text-slate font-medium mb-2">{m.title}</p>
-          <p class="text-xs text-slate uppercase tracking-wider mb-5">
-            {m.specialties}
-          </p>
+
+          <h3 class="text-h3 font-normal leading-tight mb-2.5">{m.name}</h3>
+          <p class="eyebrow mb-6">{m.role}</p>
+
+          <p class="text-[0.9375rem] font-medium text-ink mb-1.5">{m.title}</p>
+          <p class="text-xs text-slate uppercase tracking-[0.14em] mb-7">{m.specialties}</p>
+
           {m.bio.map((p) => (
-            <p class="text-sm text-ink leading-relaxed mb-3">{p}</p>
+            <p class="text-[0.9375rem] text-slate leading-relaxed mb-4">{p}</p>
           ))}
-          {detailed && m.credentials.length > 0 && (
-            <>
-              <div class="gold-rule my-6"></div>
-              <p class="eyebrow mb-3">Trayectoria</p>
-              <ul class="space-y-2 text-sm text-slate">
-                {m.credentials.map((c) => (
-                  <li class="flex gap-3">
-                    <span class="text-gold-dark mt-1">▪</span>
-                    <span>{c}</span>
+
+          {m.credentials.length > 0 && (
+            <div class="pt-8">
+              <div class="rule-gold mb-7"></div>
+              <p class="eyebrow mb-6">Trayectoria</p>
+              <ol class="space-y-4">
+                {m.credentials.map((c, i) => (
+                  <li class="flex gap-4 text-[0.9375rem] leading-relaxed">
+                    <span class="font-display text-xs tracking-[0.2em] text-gold-ink/70 pt-1.5 tnum shrink-0">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span class="text-slate">{c}</span>
                   </li>
                 ))}
-              </ul>
-            </>
+              </ol>
+            </div>
           )}
         </article>
       ))}

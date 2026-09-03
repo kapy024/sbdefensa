@@ -18,7 +18,7 @@ export const services = [
     slug: "defensa-fiscal",
     name: "Defensa Fiscal",
     short: "Controvertir créditos fiscales, multas y procedimientos del SAT.",
-    icon: "⚖️",
+    icon: "scale",
     featured: true,
     bullets: [
       "Juicios de Nulidad ante el Tribunal Federal de Justicia Administrativa",
@@ -37,7 +37,7 @@ export const services = [
     name: "Servicios Contables",
     short:
       "Cumplimiento de obligaciones fiscales y contabilidad para personas físicas y morales.",
-    icon: "📊",
+    icon: "ledger",
     featured: true,
     bullets: [
       "Contabilidad mensual y anual",
@@ -52,7 +52,7 @@ export const services = [
     slug: "aduanero-comex",
     name: "Aduanero y Comercio Exterior",
     short: "PAMA, padrón de importadores, clasificación arancelaria.",
-    icon: "🚢",
+    icon: "freight",
     bullets: [
       "Atención y seguimiento a Procedimientos Administrativos en Materia Aduanera (PAMA)",
       "Recurso de Revocación en materia aduanera",
@@ -68,7 +68,7 @@ export const services = [
     slug: "seguridad-social",
     name: "Seguridad Social",
     short: "Recursos y juicios contra IMSS e INFONAVIT.",
-    icon: "🛡️",
+    icon: "shield",
     bullets: [
       "Recursos de Inconformidad ante IMSS e INFONAVIT",
       "Juicios de Nulidad contra resoluciones del IMSS e INFONAVIT",
@@ -83,7 +83,7 @@ export const services = [
     slug: "corporativo",
     name: "Derecho Corporativo",
     short: "Constitución, reestructura y vida societaria.",
-    icon: "🏢",
+    icon: "building",
     bullets: [
       "Constitución de sociedades mercantiles y civiles",
       "Constitución de asociaciones civiles",
@@ -97,7 +97,7 @@ export const services = [
     slug: "propiedad-industrial",
     name: "Propiedad Industrial",
     short: "Registro de marcas, patentes y secretos industriales ante el IMPI.",
-    icon: "™️",
+    icon: "seal",
     bullets: [
       "Registro de marcas, logotipos, avisos y nombres comerciales",
       "Registro de denominaciones, formas tridimensionales, sonidos y empaques",
@@ -112,7 +112,7 @@ export const services = [
     slug: "piorpi",
     name: "Actividades Vulnerables (PIORPI)",
     short: "Cumplimiento de la Ley Antilavado para sujetos obligados.",
-    icon: "🔒",
+    icon: "lock",
     bullets: [
       "Identificación de sujetos obligados en materia de Actividades Vulnerables",
       "Cumplimiento de obligaciones de la Ley PIORPI",
@@ -125,7 +125,7 @@ export const services = [
     slug: "administrativo",
     name: "Derecho Administrativo",
     short: "Defensa frente a sanciones y trámites con autoridades.",
-    icon: "📋",
+    icon: "clipboard",
     bullets: [
       "Litigio e impugnación contra PROFECO, PROFEPA, Policía Federal, STPS, CONAGUA, COFEPRIS",
       "Recursos de revisión ante autoridades administrativas",
@@ -171,22 +171,22 @@ export const team = [
 
 export const audiences = [
   {
-    icon: "👤",
+    icon: "person",
     name: "Personas físicas",
     desc: "Contribuyentes con créditos fiscales, multas o procedimientos del SAT, IMSS o INFONAVIT.",
   },
   {
-    icon: "🏪",
+    icon: "storefront",
     name: "Pymes",
     desc: "Pequeñas y medianas empresas que necesitan acompañamiento integral en materia fiscal, contable y societaria.",
   },
   {
-    icon: "🏛️",
+    icon: "columns",
     name: "Corporativos",
     desc: "Empresas con esquemas complejos, visitas domiciliarias, revisiones electrónicas y litigio fiscal de alto valor.",
   },
   {
-    icon: "🌐",
+    icon: "globe",
     name: "Importadores y Exportadores",
     desc: "Empresas con operación de comercio exterior: PAMA, padrón de importadores y clasificación arancelaria.",
   },
@@ -232,4 +232,33 @@ export const faq = [
     q: "¿Se puede contratar solo una asesoría puntual o tiene que ser una iguala?",
     a: "Ambas opciones existen. Atendemos consultas puntuales, opiniones legales por escrito, defensa de un asunto específico, o iguala continua para acompañamiento permanente.",
   },
+] as const;
+
+/** Autoridades y tribunales ante los que litiga la firma. Se muestran como
+ *  wordmarks tipográficos — no como logotipos, para no usar marcas ajenas. */
+export const authorities = [
+  { abbr: "SAT", full: "Servicio de Administración Tributaria" },
+  { abbr: "TFJA", full: "Tribunal Federal de Justicia Administrativa" },
+  { abbr: "PRODECON", full: "Procuraduría de la Defensa del Contribuyente" },
+  { abbr: "IMSS", full: "Instituto Mexicano del Seguro Social" },
+  { abbr: "INFONAVIT", full: "Instituto del Fondo Nacional de la Vivienda" },
+  { abbr: "IMPI", full: "Instituto Mexicano de la Propiedad Industrial" },
+  { abbr: "ANAM", full: "Agencia Nacional de Aduanas de México" },
+  { abbr: "SCJN", full: "Suprema Corte de Justicia de la Nación" },
+] as const;
+
+/** Sedes físicas. La representación legal es nacional. */
+export const offices = [
+  { city: "Ciudad de México", state: "CDMX" },
+  { city: "Chihuahua", state: "Chih." },
+  { city: "Guadalajara", state: "Jal." },
+  { city: "Culiacán", state: "Sin." },
+] as const;
+
+/** Cifras de la firma, en formato de ficha. */
+export const figures = [
+  { value: "15", suffix: "+", label: "Años de experiencia" },
+  { value: "8", suffix: "", label: "Áreas de práctica" },
+  { value: "4", suffix: "", label: "Sedes en el país" },
+  { value: "32", suffix: "", label: "Estados con cobertura" },
 ] as const;

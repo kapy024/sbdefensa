@@ -1,130 +1,191 @@
 ---
-import { site, services } from "../data/site";
+import { site, services, offices } from "../data/site";
+import Icon from "./Icon.astro";
 
 interface Props {
   compact?: boolean;
 }
 const { compact = false } = Astro.props;
+
+const waHref = `https://wa.me/${site.whatsapp}`;
+const channels = [
+  { icon: "whatsapp", label: "WhatsApp", value: site.whatsappDisplay, href: waHref, note: "Respuesta más rápida" },
+  { icon: "mail", label: "Correo", value: site.email, href: `mailto:${site.email}`, note: "Para enviar documentos" },
+];
 ---
 
-<section id="contacto" class={compact ? "py-16" : "py-20"}>
-  <div class="container-prose grid gap-12 lg:grid-cols-2">
-    <div>
-      <p class="eyebrow mb-3">Contacto</p>
-      <h2 class="text-4xl md:text-5xl mb-5">Conversemos tu caso.</h2>
-      <p class="text-slate leading-relaxed mb-8 max-w-md">
+<section id="contacto" class={compact ? "py-section-sm" : "py-section"}>
+  <div class="shell grid gap-14 lg:grid-cols-12 lg:gap-x-16">
+    <!-- ---------------- Channels ---------------- -->
+    <div class="lg:col-span-5" data-reveal>
+      <p class="eyebrow mb-5">Contacto</p>
+      <h2 class="text-h2 font-light mb-6">Conversemos tu caso.</h2>
+      <p class="text-slate leading-relaxed mb-10 max-w-[42ch]">
         Cuéntanos brevemente tu situación y te respondemos con una valoración
         inicial sin costo. Atendemos en toda la República Mexicana.
       </p>
 
-      <div class="space-y-5 text-sm">
-        <div>
-          <p class="eyebrow mb-2">Correo</p>
-          <a href={`mailto:${site.email}`} class="hover:text-gold-dark transition-colors break-all">
-            {site.email}
-          </a>
-        </div>
-        <div>
-          <p class="eyebrow mb-2">WhatsApp</p>
-          <a
-            href={`https://wa.me/${site.whatsapp}`}
-            target="_blank"
-            rel="noopener"
-            class="hover:text-gold-dark transition-colors"
-          >
-            {site.whatsappDisplay} — Escríbenos directo
-          </a>
-        </div>
-        <div>
-          <p class="eyebrow mb-2">Presencia en</p>
-          <p>{site.location}</p>
-        </div>
-      </div>
+      <ul class="border-t border-mist">
+        {channels.map((c) => (
+          <li class="border-b border-mist">
+            <a
+              href={c.href}
+              target={c.href.startsWith("http") ? "_blank" : undefined}
+              rel={c.href.startsWith("http") ? "noopener" : undefined}
+              class="group flex items-center gap-5 py-5"
+            >
+              <span class="text-gold-ink shrink-0"><Icon name={c.icon} size={22} stroke={1.3} /></span>
+              <span class="min-w-0">
+                <span class="block text-[0.6875rem] uppercase tracking-[0.16em] text-slate">{c.label}</span>
+                <span class="block text-base mt-1 [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-gold-ink">
+                  {c.value}
+                </span>
+              </span>
+              <span class="ml-auto shrink-0 text-slate text-xs hidden md:block lg:hidden xl:block">{c.note}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <p class="eyebrow mt-10 mb-5">Sedes</p>
+      <ul class="grid grid-cols-2 gap-x-6 gap-y-3.5">
+        {offices.map((o) => (
+          <li class="flex items-center gap-2.5 text-[0.9375rem]">
+            <Icon name="pin" size={15} stroke={1.3} class="text-gold-ink shrink-0" />
+            {o.city}
+          </li>
+        ))}
+      </ul>
+      <p class="text-xs text-slate mt-5">{site.coverage} — representación en los 32 estados.</p>
     </div>
 
-    <form
-      action={`mailto:${site.email}`}
-      method="post"
-      enctype="text/plain"
-      class="bg-bone-warm p-8 lg:p-10 space-y-5"
-    >
-      <div>
-        <label for="nombre" class="block text-xs uppercase tracking-wider font-semibold mb-2">
-          Nombre completo
-        </label>
-        <input
-          id="nombre"
-          name="nombre"
-          required
-          class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors"
-        />
-      </div>
-
-      <div class="grid sm:grid-cols-2 gap-4">
+    <!-- ---------------- Form ---------------- -->
+    <div class="lg:col-span-7" data-reveal>
+      <form id="case-form" class="bg-bone-warm p-8 lg:p-11 grid gap-6" novalidate>
         <div>
-          <label for="email" class="block text-xs uppercase tracking-wider font-semibold mb-2">
-            Correo
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
+          <p class="eyebrow mb-4">Cuéntanos tu caso</p>
+          <p class="text-sm text-slate leading-relaxed">
+            Al enviar se abrirá <strong class="font-semibold text-ink">WhatsApp</strong>
+            con tu mensaje ya redactado. Solo lo revisas y lo mandas.
+          </p>
+        </div>
+
+        <div>
+          <label class="field-label" for="nombre">Nombre completo <span class="text-gold-ink">*</span></label>
+          <input id="nombre" name="nombre" class="field" required autocomplete="name" />
+          <p class="hidden mt-2 text-sm text-red-700" data-error-for="nombre"></p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="field-label" for="telefono">Teléfono</label>
+            <input id="telefono" name="telefono" type="tel" class="field" autocomplete="tel" inputmode="tel" />
+          </div>
+          <div>
+            <label class="field-label" for="area">Área de interés</label>
+            <select id="area" name="area" class="field cursor-pointer">
+              <option value="">Selecciona una opción</option>
+              {services.map((s) => <option value={s.name}>{s.name}</option>)}
+              <option value="Otro / no estoy seguro">Otro / no estoy seguro</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="mensaje">Describe tu situación <span class="text-gold-ink">*</span></label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            rows="5"
+            class="field resize-y"
             required
-            class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors"
-          />
+            placeholder="Ej. Recibí una notificación del SAT por una revisión electrónica…"
+          ></textarea>
+          <p class="hidden mt-2 text-sm text-red-700" data-error-for="mensaje"></p>
         </div>
-        <div>
-          <label for="telefono" class="block text-xs uppercase tracking-wider font-semibold mb-2">
-            Teléfono
-          </label>
-          <input
-            id="telefono"
-            name="telefono"
-            type="tel"
-            class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors"
-          />
-        </div>
-      </div>
 
-      <div>
-        <label for="area" class="block text-xs uppercase tracking-wider font-semibold mb-2">
-          Área de interés
-        </label>
-        <select
-          id="area"
-          name="area"
-          class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors"
-        >
-          <option value="">Selecciona una opción</option>
-          {services.map((s) => (
-            <option value={s.name}>{s.name}</option>
-          ))}
-          <option value="otro">Otro / no estoy seguro</option>
-        </select>
-      </div>
+        <button type="submit" class="btn btn-primary w-full">
+          <Icon name="whatsapp" size={17} />
+          <span data-submit-label>Abrir WhatsApp con mi mensaje</span>
+        </button>
 
-      <div>
-        <label for="mensaje" class="block text-xs uppercase tracking-wider font-semibold mb-2">
-          Cuéntanos tu caso
-        </label>
-        <textarea
-          id="mensaje"
-          name="mensaje"
-          rows="5"
-          required
-          class="w-full bg-bone border border-mist px-4 py-3 focus:border-gold-dark focus:outline-none transition-colors resize-none"
-        ></textarea>
-      </div>
-
-      <button type="submit" class="btn-primary w-full justify-center">
-        Enviar solicitud
-      </button>
-      <p class="text-xs text-slate text-center">
-        Al enviar aceptas nuestro
-        <a href="/aviso-de-privacidad/" class="underline hover:text-gold-dark">
-          Aviso de Privacidad
-        </a>.
-      </p>
-    </form>
+        <p class="text-xs text-slate text-center leading-relaxed">
+          ¿Prefieres correo?
+          <a href={`mailto:${site.email}`} class="link-line text-ink" data-mail-fallback>
+            Escríbenos a {site.email}
+          </a>
+          <br />
+          Al enviar aceptas nuestro
+          <a href="/aviso-de-privacidad/" class="link-line text-ink">Aviso de Privacidad</a>.
+        </p>
+      </form>
+    </div>
   </div>
 </section>
+
+<script is:inline define:vars={{ whatsapp: site.whatsapp, email: site.email }}>
+  const form = document.getElementById("case-form");
+
+  if (form) {
+    const label = form.querySelector("[data-submit-label]");
+    const showError = (name, msg) => {
+      const node = form.querySelector(`[data-error-for="${name}"]`);
+      const input = form.elements[name];
+      if (!node || !input) return;
+      node.textContent = msg;
+      node.classList.toggle("hidden", !msg);
+      input.setAttribute("aria-invalid", msg ? "true" : "false");
+    };
+
+    // Validate on blur, not on every keystroke.
+    ["nombre", "mensaje"].forEach((name) => {
+      form.elements[name]?.addEventListener("blur", (e) => {
+        showError(name, e.target.value.trim() ? "" : "Este campo es necesario para poder ayudarte.");
+      });
+    });
+
+    const buildMessage = (data) => {
+      const lines = [`Hola, soy ${data.nombre.trim()}.`];
+      if (data.area) lines.push(`Motivo: ${data.area}.`);
+      lines.push("", data.mensaje.trim());
+      if (data.telefono.trim()) lines.push("", `Mi teléfono: ${data.telefono.trim()}`);
+      return lines.join("\n");
+    };
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const data = Object.fromEntries(new FormData(form));
+      let ok = true;
+      ["nombre", "mensaje"].forEach((name) => {
+        const empty = !String(data[name] || "").trim();
+        showError(name, empty ? "Este campo es necesario para poder ayudarte." : "");
+        if (empty && ok) {
+          form.elements[name].focus();
+          ok = false;
+        }
+      });
+      if (!ok) return;
+
+      const text = buildMessage(data);
+      if (label) label.textContent = "Abriendo WhatsApp…";
+
+      const win = window.open(
+        `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`,
+        "_blank",
+        "noopener"
+      );
+
+      // Popup blocked: fall back to email so the message is never lost.
+      if (!win) {
+        window.location.href =
+          `mailto:${email}?subject=${encodeURIComponent("Consulta desde el sitio")}` +
+          `&body=${encodeURIComponent(text)}`;
+      }
+
+      setTimeout(() => {
+        if (label) label.textContent = "Abrir WhatsApp con mi mensaje";
+      }, 2500);
+    });
+  }
+</script>

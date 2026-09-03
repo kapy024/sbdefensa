@@ -1,17 +1,20 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
 import CTA from "../../components/CTA.astro";
+import Icon from "../../components/Icon.astro";
 import { services, site } from "../../data/site";
 
 export function getStaticPaths() {
-  return services.map((service) => ({
+  return services.map((service, i) => ({
     params: { slug: service.slug },
-    props: { service },
+    props: { service, index: i },
   }));
 }
 
-const { service } = Astro.props;
-const others = services.filter((s) => s.slug !== service.slug).slice(0, 4);
+const { service, index } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug);
+const waHref = `https://wa.me/${site.whatsapp}`;
 ---
 
 <Layout
@@ -19,67 +22,74 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 4);
   description={service.short}
   canonicalPath={`/servicios/${service.slug}/`}
 >
-  <section class="bg-ink text-bone py-20">
-    <div class="container-prose max-w-4xl">
-      <a href="/#servicios" class="text-gold-light text-xs uppercase tracking-wider hover:text-gold transition-colors">
-        ← Áreas de práctica
-      </a>
-      <div class="text-5xl mt-6 mb-4">{service.icon}</div>
-      <p class="eyebrow text-gold-light mb-3">Servicio</p>
-      <h1 class="text-5xl md:text-6xl text-bone leading-tight mb-6">{service.name}</h1>
-      <p class="text-bone/80 text-lg leading-relaxed max-w-2xl">{service.short}</p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Área de práctica"
+    index={`${String(index + 1).padStart(2, "0")} / ${String(services.length).padStart(2, "0")}`}
+    back={{ href: "/#servicios", label: "Todas las áreas" }}
+  >
+    <span slot="title">{service.name}</span>
+    {service.short}
+  </PageHero>
 
-  <section class="py-20">
-    <div class="container-prose grid gap-12 lg:grid-cols-3">
-      <div class="lg:col-span-2">
-        <p class="eyebrow mb-4">Qué incluye</p>
-        <h2 class="text-4xl mb-8">Alcance del servicio.</h2>
-        <ul class="space-y-4">
+  <section class="py-section">
+    <div class="shell grid gap-14 lg:grid-cols-12 lg:gap-x-16">
+      <div class="lg:col-span-7 xl:col-span-8">
+        <div class="flex items-start gap-5 mb-10" data-reveal>
+          <span class="text-gold-ink shrink-0">
+            <Icon name={service.icon} size={40} stroke={1.2} />
+          </span>
+          <div>
+            <p class="eyebrow mb-4">Qué incluye</p>
+            <h2 class="text-h2 font-light">Alcance del servicio.</h2>
+          </div>
+        </div>
+
+        <ul class="border-t border-mist" data-reveal-stagger="40">
           {service.bullets.map((b) => (
-            <li class="flex gap-4 pb-4 border-b border-mist">
-              <span class="text-gold-dark mt-1 shrink-0">▪</span>
-              <span class="text-ink leading-relaxed">{b}</span>
+            <li class="flex gap-4 py-5 border-b border-mist" data-reveal>
+              <Icon name="check" size={17} stroke={1.5} class="text-gold-ink mt-1 shrink-0" />
+              <span class="text-[0.9375rem] leading-relaxed">{b}</span>
             </li>
           ))}
         </ul>
 
-        <div class="mt-12 p-8 bg-bone-warm">
-          <h3 class="text-2xl mb-3">¿Listo para empezar?</h3>
-          <p class="text-slate mb-6 leading-relaxed">
+        <div class="mt-12 paper-panel p-9 lg:p-11" data-reveal>
+          <p class="eyebrow mb-5">Siguiente paso</p>
+          <h3 class="text-h3 font-normal mb-4">¿Listo para empezar?</h3>
+          <p class="text-slate mb-8 leading-relaxed max-w-[52ch]">
             Cuéntanos los detalles de tu caso. Te respondemos con una valoración
             inicial y propuesta económica clara antes de iniciar.
           </p>
           <div class="flex flex-wrap gap-3">
-            <a href="/contacto/" class="btn-primary">Solicita asesoría</a>
-            <a
-              href={`https://wa.me/${site.whatsapp}`}
-              target="_blank"
-              rel="noopener"
-              class="btn-secondary"
-            >
+            <a href="/contacto/" class="btn btn-primary">
+              Solicita asesoría
+              <Icon name="arrow-right" size={17} stroke={1.5} />
+            </a>
+            <a href={waHref} target="_blank" rel="noopener" class="btn btn-ghost">
+              <Icon name="whatsapp" size={17} />
               WhatsApp directo
             </a>
           </div>
         </div>
       </div>
 
-      <aside class="lg:col-span-1">
-        <div class="sticky top-24">
-          <p class="eyebrow mb-4">Otros servicios</p>
-          <ul class="space-y-1">
+      <aside class="lg:col-span-5 xl:col-span-4" data-reveal>
+        <div class="lg:sticky lg:top-28">
+          <p class="eyebrow mb-6">Otras áreas</p>
+          <ul class="border-t border-mist">
             {others.map((s) => (
-              <li>
+              <li class="border-b border-mist">
                 <a
                   href={`/servicios/${s.slug}/`}
-                  class="flex items-start gap-3 p-3 -mx-3 hover:bg-bone-warm transition-colors"
+                  class="group flex items-start gap-4 py-4 transition-colors duration-300 hover:text-gold-ink"
                 >
-                  <span class="text-xl leading-none mt-0.5">{s.icon}</span>
-                  <div>
-                    <div class="font-medium text-sm">{s.name}</div>
-                    <div class="text-xs text-slate mt-1 leading-snug">{s.short}</div>
-                  </div>
+                  <span class="text-gold-ink mt-0.5 shrink-0 transition-transform duration-400 group-hover:-translate-y-0.5">
+                    <Icon name={s.icon} size={20} />
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-medium text-[0.9375rem] leading-snug">{s.name}</span>
+                    <span class="block text-xs text-slate mt-1 leading-snug">{s.short}</span>
+                  </span>
                 </a>
               </li>
             ))}

@@ -23,3 +23,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# artefactos locales de plugins de Claude Code
+.claude-flow/
+.claude/proven-config.json
+.claude/.proven-config-version

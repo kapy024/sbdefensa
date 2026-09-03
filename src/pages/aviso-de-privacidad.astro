@@ -8,12 +8,12 @@ import { site } from "../data/site";
   description={`Aviso de Privacidad de ${site.legalName}.`}
   canonicalPath="/aviso-de-privacidad/"
 >
-  <article class="container-prose max-w-3xl py-20 prose-content">
+  <article class="shell-narrow py-section prose-legal">
     <p class="eyebrow mb-3">Documento legal</p>
-    <h1 class="text-4xl md:text-5xl mb-8">Aviso de Privacidad</h1>
-    <div class="gold-rule mb-10 max-w-md"></div>
+    <h1 class="text-h1 font-light mb-8">Aviso de Privacidad</h1>
+    <div class="rule-gold mb-12 max-w-md"></div>
 
-    <div class="space-y-6 text-ink leading-relaxed">
+    <div class="space-y-6 text-slate leading-relaxed">
       <p>
         <strong>{site.legalName}</strong> ("SBDefensa", "nosotros") es responsable
         del tratamiento de los datos personales que usted nos proporciona y los
@@ -21,14 +21,14 @@ import { site } from "../data/site";
         Posesión de los Particulares.
       </p>
 
-      <h2 class="text-2xl mt-10 mb-3">Datos que recabamos</h2>
+      <h2 class="text-h3 font-normal mt-12 mb-4">Datos que recabamos</h2>
       <p>
         Recabamos datos de identificación y contacto (nombre, correo electrónico,
         teléfono) y, en su caso, datos relativos a su situación fiscal, contable
         o legal estrictamente necesarios para evaluar y atender su asunto.
       </p>
 
-      <h2 class="text-2xl mt-10 mb-3">Finalidades del tratamiento</h2>
+      <h2 class="text-h3 font-normal mt-12 mb-4">Finalidades del tratamiento</h2>
       <p>Sus datos serán tratados para las siguientes finalidades:</p>
       <ul class="list-disc pl-6 space-y-2">
         <li>Atender solicitudes de asesoría y contacto inicial.</li>
@@ -37,7 +37,7 @@ import { site } from "../data/site";
         <li>Cumplir obligaciones legales y fiscales aplicables al despacho.</li>
       </ul>
 
-      <h2 class="text-2xl mt-10 mb-3">Transferencias</h2>
+      <h2 class="text-h3 font-normal mt-12 mb-4">Transferencias</h2>
       <p>
         No transferimos sus datos personales a terceros sin su consentimiento,
         salvo en los supuestos previstos por la ley o cuando sea necesario para
@@ -45,15 +45,15 @@ import { site } from "../data/site";
         judiciales.
       </p>
 
-      <h2 class="text-2xl mt-10 mb-3">Derechos ARCO</h2>
+      <h2 class="text-h3 font-normal mt-12 mb-4">Derechos ARCO</h2>
       <p>
         Usted tiene derecho a acceder, rectificar, cancelar u oponerse al
         tratamiento de sus datos personales, así como a revocar el consentimiento
         otorgado. Para ejercer estos derechos envíe una solicitud al correo
-        <a href={`mailto:${site.email}`} class="underline hover:text-gold-dark">{site.email}</a>.
+        <a href={`mailto:${site.email}`} class="underline hover:text-gold-ink">{site.email}</a>.
       </p>
 
-      <h2 class="text-2xl mt-10 mb-3">Cambios al aviso</h2>
+      <h2 class="text-h3 font-normal mt-12 mb-4">Cambios al aviso</h2>
       <p>
         Cualquier modificación a este aviso se publicará en este mismo sitio.
       </p>

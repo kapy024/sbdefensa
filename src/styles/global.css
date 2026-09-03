@@ -1,102 +1,368 @@
 @import "tailwindcss";
 
-@theme {
-  --color-ink: #0a0a0a;
-  --color-ink-soft: #1a1a1a;
-  --color-bone: #faf8f3;
-  --color-bone-warm: #f3eee2;
-  --color-gold: #c9a961;
-  --color-gold-dark: #a88947;
-  --color-gold-light: #e3cd96;
-  --color-mist: #e8e4dc;
-  --color-slate: #6b6b6b;
+/* ============================================================
+   SBDefensa — Design tokens
+   Editorial / legal. Warm paper, ink, restrained gold.
+   ============================================================ */
 
+@theme {
+  /* --- Ink ------------------------------------------------- */
+  --color-ink: #0b0b0c;
+  --color-ink-soft: #17181a;
+  --color-ink-line: #26272b;
+
+  /* --- Paper ----------------------------------------------- */
+  --color-bone: #faf8f3;
+  --color-bone-warm: #f4efe4;
+  --color-bone-deep: #ebe4d4;
+
+  /* --- Gold -------------------------------------------------
+     gold        decorative only (rules, accents on dark)
+     gold-ink    text-safe on paper  → 5.49:1 on bone
+     gold-light  text-safe on ink    → 12.67:1
+     ---------------------------------------------------------- */
+  --color-gold: #c9a961;
+  --color-gold-deep: #a88947;
+  --color-gold-ink: #7d611f;
+  --color-gold-light: #e3cd96;
+
+  /* --- Neutrals -------------------------------------------- */
+  --color-slate: #63646a;
+  --color-mist: #e4ded1;
+  --color-mist-soft: #efe9dc;
+
+  /* --- Type ------------------------------------------------ */
   --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
-  --shadow-elevated: 0 4px 12px rgb(0 0 0 / 0.08), 0 24px 48px rgb(0 0 0 / 0.10);
+  /* Fluid display scale — 375px → 1440px */
+  --text-display: clamp(2.75rem, 1.6rem + 4.9vw, 5.75rem);
+  --text-display--line-height: 0.98;
+  --text-h1: clamp(2.25rem, 1.45rem + 3.4vw, 4.25rem);
+  --text-h1--line-height: 1.04;
+  --text-h2: clamp(1.875rem, 1.35rem + 2.24vw, 3.125rem);
+  --text-h2--line-height: 1.1;
+  --text-h3: clamp(1.375rem, 1.13rem + 1.04vw, 1.9rem);
+  --text-h3--line-height: 1.2;
+  --text-lead: clamp(1.0625rem, 1rem + 0.32vw, 1.25rem);
+  --text-lead--line-height: 1.65;
+
+  /* --- Rhythm ---------------------------------------------- */
+  --spacing-section: clamp(4.5rem, 3rem + 6.4vw, 8.5rem);
+  --spacing-section-sm: clamp(3.5rem, 2.6rem + 3.8vw, 6rem);
+
+  /* --- Depth ----------------------------------------------- */
+  --shadow-soft: 0 1px 2px rgb(24 20 10 / 0.04), 0 10px 30px rgb(24 20 10 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(24 20 10 / 0.05), 0 18px 44px rgb(24 20 10 / 0.10);
+  --shadow-ink: 0 30px 70px rgb(11 11 12 / 0.28);
+
+  /* --- Motion ---------------------------------------------- */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
+
+/* ============================================================
+   Base
+   ============================================================ */
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
     font-family: var(--font-sans);
     color: var(--color-ink);
     background: var(--color-bone);
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-feature-settings: "cv05" 1, "ss01" 1;
+    overflow-x: clip;
+  }
+
+  /* Paper grain — sits above the page, never intercepts input. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.032;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    letter-spacing: -0.018em;
     color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Tabular figures wherever numbers line up. */
+  time, .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-ink);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  .on-ink :focus-visible {
+    outline-color: var(--color-gold-light);
   }
 
   ::selection {
     background: var(--color-gold);
     color: var(--color-ink);
   }
+
+  summary::-webkit-details-marker { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
+/* ============================================================
+   Components
+   ============================================================ */
+
 @layer components {
-  .container-prose {
-    max-width: 72rem;
+  .shell {
+    width: 100%;
+    max-width: 78rem;
     margin-inline: auto;
-    padding-inline: 1.5rem;
+    padding-inline: clamp(1.25rem, 0.6rem + 2.8vw, 3rem);
   }
+
+  .shell-narrow {
+    width: 100%;
+    max-width: 52rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 0.6rem + 2.8vw, 3rem);
+  }
+
+  /* --- Eyebrow: small caps label, optionally numbered ------- */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-gold-ink);
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    flex: none;
+    background: currentColor;
+    opacity: 0.55;
+  }
+
+  .on-ink .eyebrow { color: var(--color-gold-light); }
+
+  /* --- Buttons --------------------------------------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 3rem;
+    padding: 0.875rem 1.625rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.24s var(--ease-out-quint),
+      border-color 0.24s var(--ease-out-quint),
+      color 0.24s var(--ease-out-quint),
+      box-shadow 0.24s var(--ease-out-quint);
+  }
+
+  .btn svg { flex: none; }
+
+  .btn:active { transform: translateY(1px); }
 
   .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.75rem;
     background: var(--color-ink);
     color: var(--color-bone);
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    transition: all 0.2s ease;
-    border: 1px solid var(--color-ink);
+    border-color: var(--color-ink);
   }
-
   .btn-primary:hover {
-    background: var(--color-gold-dark);
-    border-color: var(--color-gold-dark);
+    background: var(--color-gold-ink);
+    border-color: var(--color-gold-ink);
+    box-shadow: var(--shadow-lift);
   }
 
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.75rem;
+  .btn-ghost {
     background: transparent;
     color: var(--color-ink);
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    transition: all 0.2s ease;
-    border: 1px solid var(--color-ink);
+    border-color: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-ink) 4%, transparent);
   }
 
-  .btn-secondary:hover {
-    background: var(--color-ink);
+  .btn-gold {
+    background: var(--color-gold);
+    color: var(--color-ink);
+    border-color: var(--color-gold);
+  }
+  .btn-gold:hover {
+    background: var(--color-gold-light);
+    border-color: var(--color-gold-light);
+    box-shadow: 0 18px 40px rgb(201 169 97 / 0.25);
+  }
+
+  .btn-on-ink {
+    background: transparent;
     color: var(--color-bone);
+    border-color: color-mix(in srgb, var(--color-bone) 32%, transparent);
+  }
+  .btn-on-ink:hover {
+    background: var(--color-bone);
+    color: var(--color-ink);
+    border-color: var(--color-bone);
   }
 
-  .gold-rule {
+  /* --- Rules ----------------------------------------------- */
+  .rule-gold {
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    background: linear-gradient(90deg, var(--color-gold), color-mix(in srgb, var(--color-gold) 12%, transparent));
   }
 
-  .eyebrow {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--color-gold-dark);
-    font-weight: 600;
+  /* --- Animated text link ---------------------------------- */
+  .link-line {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.32s var(--ease-out-quint);
   }
+  .link-line:hover { background-size: 100% 1px; }
+
+
+  /* Long-form legal copy. */
+  .prose-legal { max-width: 46rem; }
+  .prose-legal p { line-height: 1.75; }
+  .prose-legal strong { color: var(--color-ink); font-weight: 600; }
+  .prose-legal a { color: var(--color-gold-ink); text-underline-offset: 3px; }
+  .prose-legal ul { padding-left: 0; list-style: none; }
+  .prose-legal ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    line-height: 1.7;
+  }
+  .prose-legal ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.85em;
+    width: 0.6rem;
+    height: 1px;
+    background: var(--color-gold);
+  }
+
+  /* --- Form fields ----------------------------------------- */
+  .field-label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-slate);
+    margin-bottom: 0.5rem;
+  }
+
+  .field {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.8125rem 1rem;
+    font-size: 1rem;
+    color: var(--color-ink);
+    background: var(--color-bone);
+    border: 1px solid var(--color-mist);
+    transition: border-color 0.2s var(--ease-out-quint), box-shadow 0.2s var(--ease-out-quint);
+  }
+
+  .field::placeholder { color: color-mix(in srgb, var(--color-slate) 65%, transparent); }
+
+  .field:hover { border-color: color-mix(in srgb, var(--color-ink) 26%, transparent); }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--color-gold-ink);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 26%, transparent);
+  }
+}
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+
+@layer utilities {
+  /* Scroll reveal. Hidden state applies only when JS is on, so
+     the page is fully readable without it. */
+  .has-js [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  .has-js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.7s var(--ease-out-quint) var(--reveal-delay, 0ms),
+      transform 0.7s var(--ease-out-quint) var(--reveal-delay, 0ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .has-js [data-reveal] { opacity: 1; transform: none; }
+  }
+
+  /* Hairline grid: 1px separators drawn with the parent's bg. */
+  .hairline-grid {
+    gap: 1px;
+    background: var(--color-mist);
+    border: 1px solid var(--color-mist);
+  }
+
+  .ink-panel {
+    background:
+      radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--color-gold) 13%, transparent) 0%, transparent 58%),
+      var(--color-ink);
+  }
+
+  .paper-panel {
+    background:
+      radial-gradient(90% 70% at 0% 0%, color-mix(in srgb, var(--color-gold) 10%, transparent) 0%, transparent 60%),
+      var(--color-bone-warm);
+  }
+
+  .balance { text-wrap: balance; }
 }

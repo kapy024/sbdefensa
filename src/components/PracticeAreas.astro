@@ -1,31 +1,47 @@
 ---
 import { services } from "../data/site";
+import Icon from "./Icon.astro";
 ---
 
-<section id="servicios" class="py-20">
-  <div class="container-prose">
-    <div class="max-w-2xl mb-12">
-      <p class="eyebrow mb-3">Áreas de práctica</p>
-      <h2 class="text-4xl md:text-5xl mb-4">Defensa integral bajo un mismo techo.</h2>
-      <p class="text-slate">
-        Atendemos los frentes en los que se enfrenta la operación cotidiana de
-        contribuyentes y empresas: del SAT a la aduana, de la propiedad
-        industrial al cumplimiento contable.
+<section id="servicios" class="py-section">
+  <div class="shell">
+    <div class="flex flex-wrap items-end justify-between gap-8 mb-14" data-reveal>
+      <div class="max-w-2xl">
+        <p class="eyebrow mb-5">Áreas de práctica</p>
+        <h2 class="text-h2 font-light mb-5">Defensa integral bajo un mismo techo.</h2>
+        <p class="text-slate max-w-[52ch] leading-relaxed">
+          Atendemos los frentes en los que se juega la operación cotidiana de
+          contribuyentes y empresas: del SAT a la aduana, de la propiedad
+          industrial al cumplimiento contable.
+        </p>
+      </div>
+      <p class="font-display text-sm tracking-[0.28em] text-slate pb-2">
+        08 <span class="text-mist">/</span> ÁREAS
       </p>
     </div>
 
-    <div class="grid gap-px bg-mist md:grid-cols-2 lg:grid-cols-4 border border-mist">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 hairline-grid" data-reveal-stagger="55">
       {services.map((s) => (
         <a
           href={`/servicios/${s.slug}/`}
-          class="group bg-bone p-7 hover:bg-bone-warm transition-colors flex flex-col"
+          class="group relative bg-bone p-8 flex flex-col transition-colors duration-300 hover:bg-bone-warm"
+          data-reveal
         >
-          <div class="text-3xl mb-4">{s.icon}</div>
-          <h3 class="text-xl mb-2 group-hover:text-gold-dark transition-colors">{s.name}</h3>
+          <span
+            class="text-gold-ink mb-6 transition-transform duration-500 ease-out group-hover:-translate-y-1"
+          >
+            <Icon name={s.icon} size={30} stroke={1.25} />
+          </span>
+
+          <h3 class="text-[1.3rem] font-display font-medium leading-snug mb-3 transition-colors duration-300 group-hover:text-gold-ink">
+            {s.name}
+          </h3>
           <p class="text-sm text-slate leading-relaxed flex-1">{s.short}</p>
-          <div class="mt-5 text-xs uppercase tracking-wider text-gold-dark font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-            Ver servicio →
-          </div>
+
+          <span class="mt-7 flex items-center gap-2 text-[0.6875rem] uppercase tracking-[0.16em] font-semibold text-gold-ink">
+            <span class="h-px w-5 bg-gold transition-all duration-500 ease-out group-hover:w-9"></span>
+            Ver servicio
+          </span>
         </a>
       ))}
     </div>

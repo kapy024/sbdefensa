@@ -1,81 +1,97 @@
 ---
-import { site, services } from "../data/site";
+import { site, services, offices } from "../data/site";
+import Icon from "./Icon.astro";
+
 const year = new Date().getFullYear();
+const waHref = `https://wa.me/${site.whatsapp}`;
+const half = Math.ceil(services.length / 2);
 ---
 
-<footer class="bg-ink text-bone mt-24">
-  <div class="container-prose py-16 grid gap-10 md:grid-cols-4">
-    <div class="md:col-span-1">
-      <img src="/logo.png" alt={site.legalName} class="h-12 w-auto invert mb-4" />
-      <p class="text-sm text-bone/70 leading-relaxed">
-        {site.legalName}. Firma fundada en {site.foundedYear}.
-      </p>
-      <p class="text-xs text-bone/50 mt-4">{site.coverage}</p>
-    </div>
+<footer class="on-ink ink-panel text-bone">
+  <div class="shell pt-section-sm pb-12">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-x-14">
+      <!-- Identity -->
+      <div class="lg:col-span-4">
+        <img src="/logo.png" alt={site.legalName} width="200" height="56" class="h-12 w-auto invert brightness-110 mb-7" />
+        <p class="text-[0.9375rem] text-bone/65 leading-relaxed max-w-[34ch]">
+          {site.legalName}. Firma fundada en {site.foundedYear}.
+        </p>
+        <div class="rule-gold my-7 max-w-[12rem]"></div>
+        <p class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60">
+          {site.coverage}
+        </p>
+      </div>
 
-    <div>
-      <h3 class="text-bone text-sm font-semibold tracking-wider uppercase mb-4">Servicios</h3>
-      <ul class="space-y-2 text-sm text-bone/70">
-        {services.slice(0, 4).map((s) => (
+      <!-- Services -->
+      <nav class="lg:col-span-5 grid grid-cols-2 gap-x-8" aria-label="Áreas de práctica">
+        <div>
+          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mb-5">Servicios</h2>
+          <ul class="space-y-3 text-[0.9375rem] text-bone/70">
+            {services.slice(0, half).map((s) => (
+              <li>
+                <a href={`/servicios/${s.slug}/`} class="link-line hover:text-gold transition-colors">
+                  {s.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mb-5">Más áreas</h2>
+          <ul class="space-y-3 text-[0.9375rem] text-bone/70">
+            {services.slice(half).map((s) => (
+              <li>
+                <a href={`/servicios/${s.slug}/`} class="link-line hover:text-gold transition-colors">
+                  {s.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mt-8 mb-5">Firma</h2>
+          <ul class="space-y-3 text-[0.9375rem] text-bone/70">
+            <li><a href="/nosotros/" class="link-line hover:text-gold transition-colors">Nosotros</a></li>
+            <li><a href="/contacto/" class="link-line hover:text-gold transition-colors">Contacto</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Contact -->
+      <div class="lg:col-span-3">
+        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mb-5">Contacto</h2>
+        <ul class="space-y-4 text-sm text-bone/70">
           <li>
-            <a href={`/servicios/${s.slug}/`} class="hover:text-gold transition-colors">
-              {s.name}
+            <a href={`mailto:${site.email}`} class="flex items-start gap-3 hover:text-gold transition-colors">
+              <Icon name="mail" size={17} stroke={1.3} class="mt-0.5 shrink-0" />
+              <span class="[overflow-wrap:anywhere]">{site.email}</span>
             </a>
           </li>
-        ))}
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="text-bone text-sm font-semibold tracking-wider uppercase mb-4">Más</h3>
-      <ul class="space-y-2 text-sm text-bone/70">
-        {services.slice(4).map((s) => (
           <li>
-            <a href={`/servicios/${s.slug}/`} class="hover:text-gold transition-colors">
-              {s.name}
+            <a href={waHref} target="_blank" rel="noopener" class="flex items-center gap-3 hover:text-gold transition-colors">
+              <Icon name="whatsapp" size={16} />
+              {site.whatsappDisplay}
             </a>
           </li>
-        ))}
-        <li class="pt-2 border-t border-bone/10 mt-2">
-          <a href="/nosotros/" class="hover:text-gold transition-colors">Nosotros</a>
-        </li>
-        <li>
-          <a href="/contacto/" class="hover:text-gold transition-colors">Contacto</a>
-        </li>
-      </ul>
-    </div>
+        </ul>
 
-    <div>
-      <h3 class="text-bone text-sm font-semibold tracking-wider uppercase mb-4">Contacto</h3>
-      <ul class="space-y-2 text-sm text-bone/70">
-        <li>
-          <a href={`mailto:${site.email}`} class="hover:text-gold transition-colors break-all">
-            {site.email}
-          </a>
-        </li>
-        <li>
-          <a
-            href={`https://wa.me/${site.whatsapp}`}
-            target="_blank"
-            rel="noopener"
-            class="hover:text-gold transition-colors"
-          >
-            WhatsApp: {site.whatsappDisplay}
-          </a>
-        </li>
-        <li class="pt-2 text-bone/50">{site.location}</li>
-      </ul>
+        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mt-8 mb-5">Sedes</h2>
+        <ul class="space-y-2.5 text-[0.9375rem] text-bone/70">
+          {offices.map((o) => (
+            <li class="flex items-center gap-2.5">
+              <span class="h-px w-3 bg-gold/60"></span>
+              {o.city}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   </div>
 
   <div class="border-t border-bone/10">
-    <div class="container-prose py-6 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center text-xs text-bone/50">
+    <div class="shell py-6 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center text-xs text-bone/60">
       <p>© {year} {site.legalName}. Todos los derechos reservados.</p>
-      <div class="flex gap-6">
-        <a href="/aviso-de-privacidad/" class="hover:text-gold transition-colors">
-          Aviso de Privacidad
-        </a>
-      </div>
+      <a href="/aviso-de-privacidad/" class="link-line hover:text-gold transition-colors">
+        Aviso de Privacidad
+      </a>
     </div>
   </div>
 </footer>

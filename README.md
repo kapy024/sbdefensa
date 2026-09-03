@@ -21,17 +21,55 @@ npm run preview  # sirve build
 
 ```
 src/
-├── components/    componentes reutilizables (Header, Footer, Hero, etc.)
-├── data/          contenido estructurado (servicios, equipo, FAQ, datos del sitio)
-├── layouts/       layout base con SEO/OG
-├── pages/         rutas
-│   ├── index.astro
-│   ├── nosotros.astro
-│   ├── contacto.astro
-│   ├── aviso-de-privacidad.astro
-│   └── servicios/[slug].astro    8 áreas de práctica generadas dinámicamente
-└── styles/global.css   tokens (paleta, tipografías) + Tailwind v4
+├── components/
+│   ├── Icon.astro       set de iconos SVG propio (línea 1.4, rejilla 24)
+│   ├── PageHero.astro   cabecera de páginas internas
+│   └── …                Header, Footer, Hero, secciones
+├── data/site.ts         contenido estructurado
+├── layouts/Layout.astro layout base: SEO, OG, JSON-LD y motor de scroll reveal
+├── pages/               rutas (8 áreas de práctica generadas dinámicamente)
+└── styles/global.css    sistema de diseño: tokens + base + componentes + utilidades
 ```
+
+## Sistema de diseño
+
+`src/styles/global.css` es la única fuente de verdad. No metas hex sueltos en
+componentes.
+
+**Color.** Tinta `#0b0b0c`, papel `#faf8f3` / `#f4efe4`, y tres oros con roles
+distintos que **no son intercambiables**:
+
+| Token | Uso | Contraste |
+|---|---|---|
+| `--color-gold` `#c9a961` | reglas y acentos **sobre tinta** | 8.74:1 sobre ink |
+| `--color-gold-ink` `#7d611f` | **texto** sobre papel | 5.49:1 sobre bone |
+| `--color-gold-light` `#e3cd96` | texto sobre tinta | 12.59:1 sobre ink |
+
+`--color-gold` sobre papel da 2.12:1 — reprueba WCAG AA. Para texto sobre papel
+usa siempre `gold-ink`. Toda combinación del sitio está verificada ≥4.5:1
+(≥3:1 en texto grande).
+
+**Tipografía.** Cormorant Garamond (display, pesos 300–500) e Inter (texto).
+La escala es fluida por `clamp()`: `text-display`, `text-h1`, `text-h2`,
+`text-h3`, `text-lead`. No uses `text-5xl` y similares en secciones.
+
+**Ritmo.** `py-section` y `py-section-sm` para el espaciado vertical de
+secciones; `.shell` y `.shell-narrow` para el ancho de contenido.
+
+**Iconos.** Nunca emojis. `<Icon name="scale" />` — los nombres válidos están en
+`src/components/Icon.astro` y el componente lanza error si pides uno inexistente.
+
+**Movimiento.** Marca un elemento con `data-reveal` para que aparezca al entrar
+en viewport; `data-reveal-stagger="80"` en el padre escalona a los hijos. El
+estado oculto solo se aplica con JS activo, respeta `prefers-reduced-motion` y
+tiene un failsafe a 4s: el contenido nunca puede quedarse invisible.
+
+## Formulario de contacto
+
+El formulario **no envía correo**: arma un mensaje redactado y abre WhatsApp
+(`wa.me`) con el texto listo. Si el navegador bloquea la ventana emergente, cae
+a `mailto:` con el mismo contenido. Valida en `blur`, no en cada tecla, y mueve
+el foco al primer campo inválido.
 
 ## Edición de contenido
 
