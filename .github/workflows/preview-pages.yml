@@ -1,0 +1,47 @@
+name: Preview en GitHub Pages
+
+# Solo ramas de trabajo. Producción (HostGator) sigue disparando únicamente
+# con push a main desde deploy.yml; este workflow no la toca.
+on:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: preview-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - run: npm ci
+      - name: Build (preview, noindex)
+        run: npm run build
+        env:
+          PUBLIC_PREVIEW: '1'
+      - name: Reescribir rutas a la subruta de Pages
+        run: node scripts/prefix-base.mjs "/${{ github.event.repository.name }}" dist
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

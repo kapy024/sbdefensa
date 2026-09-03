@@ -54,6 +54,7 @@ const jsonLd = {
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="canonical" href={canonical} />
     <meta name="generator" content={Astro.generator} />
+    {import.meta.env.PUBLIC_PREVIEW === "1" && <meta name="robots" content="noindex, nofollow" />}
 
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
