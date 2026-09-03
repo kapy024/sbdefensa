@@ -1,0 +1,63 @@
+---
+/**
+ * Sello de la firma: anillos concéntricos con leyenda circular que gira lento.
+ * Es la única pieza con volumen del sitio — sin fotografía, el hero necesitaba
+ * un objeto con presencia. Decorativo: aria-hidden.
+ */
+interface Props { class?: string }
+const { class: className = "" } = Astro.props;
+
+const legend = "SÁMANO BURKOLTER · DEFENSA FISCAL & CONTABLE · COBERTURA NACIONAL · ";
+---
+
+<svg viewBox="0 0 400 400" class={className} aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="seal-face" cx="32%" cy="26%" r="78%">
+      <stop offset="0%"   stop-color="var(--color-gold-light)" stop-opacity="0.42" />
+      <stop offset="52%"  stop-color="var(--color-gold)"       stop-opacity="0.16" />
+      <stop offset="100%" stop-color="var(--color-gold-deep)"  stop-opacity="0.04" />
+    </radialGradient>
+
+    <linearGradient id="seal-ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="var(--color-gold-light)" />
+      <stop offset="48%"  stop-color="var(--color-gold)" />
+      <stop offset="100%" stop-color="var(--color-gold-deep)" stop-opacity="0.35" />
+    </linearGradient>
+
+    <path
+      id="seal-arc"
+      fill="none"
+      d="M 200,200 m -152,0 a 152,152 0 1,1 304,0 a 152,152 0 1,1 -304,0"
+    />
+  </defs>
+
+  <!-- cuerpo -->
+  <circle cx="200" cy="200" r="196" fill="url(#seal-face)" />
+  <circle cx="200" cy="200" r="196" fill="none" stroke="url(#seal-ring)" stroke-width="1.5" opacity="0.75" />
+  <circle cx="200" cy="200" r="176" fill="none" stroke="url(#seal-ring)" stroke-width="0.75" opacity="0.5" />
+
+  <!-- leyenda circular: gira -->
+  <g class="seal-spin" style="transform-origin: 200px 200px">
+    <text
+      fill="var(--color-gold-deep)"
+      font-family="var(--font-sans)"
+      font-size="15"
+      font-weight="600"
+      letter-spacing="3.4"
+      opacity="0.62"
+    >
+      <textPath href="#seal-arc" startOffset="0">{legend + legend}</textPath>
+    </text>
+  </g>
+
+  <!-- núcleo -->
+  <circle cx="200" cy="200" r="122" fill="none" stroke="url(#seal-ring)" stroke-width="0.75" opacity="0.45" />
+  <circle cx="200" cy="200" r="112" fill="none" stroke="url(#seal-ring)" stroke-width="2.5" opacity="0.6" />
+
+  <!-- balanza estilizada, misma familia que los iconos -->
+  <g stroke="var(--color-gold-deep)" stroke-width="2.4" fill="none" opacity="0.62" stroke-linecap="round">
+    <path d="M200 148v104M176 256h48M158 176h84" />
+    <path d="M158 176l-16 38h32zM242 176l-16 38h32z" stroke-linejoin="round" />
+    <circle cx="200" cy="152" r="6" />
+  </g>
+</svg>

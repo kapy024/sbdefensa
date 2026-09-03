@@ -25,11 +25,12 @@ const initials = (name: string) =>
 
     <div class="grid gap-8 md:grid-cols-2 items-start" data-reveal-stagger="110">
       {team.map((m) => (
-        <article class="bg-bone border border-mist p-9 lg:p-11 flex flex-col" data-reveal>
+        <article class="card p-9 lg:p-11 flex flex-col" data-reveal>
           <!-- Monogram seal: a printed ex-libris, not a photo placeholder. -->
-          <div class="relative w-20 h-20 mb-8 shrink-0">
-            <div class="absolute inset-0 border border-gold/70"></div>
-            <div class="absolute inset-[5px] border border-gold/35"></div>
+          <div class="relative w-24 h-24 mb-8 shrink-0">
+            <div class="absolute inset-0 rounded-full border border-gold/70"></div>
+            <div class="absolute inset-[6px] rounded-full border border-gold/35"></div>
+            <div class="absolute inset-[6px] rounded-full" style="background: radial-gradient(circle at 32% 26%, color-mix(in srgb, var(--color-gold) 22%, transparent), transparent 70%)"></div>
             <span
               class="absolute inset-0 grid place-items-center font-display text-2xl tracking-[0.06em] text-gold-ink"
             >

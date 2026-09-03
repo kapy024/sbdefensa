@@ -9,9 +9,9 @@ import { differentiators } from "../data/site";
       <h2 data-split data-split-step="34" class="text-h2 font-light">Una firma con respaldo institucional.</h2>
     </div>
 
-    <div class="grid md:grid-cols-3 hairline-grid" data-reveal-stagger="90">
+    <div class="grid md:grid-cols-3 gap-6" data-reveal-stagger="90">
       {differentiators.map((d, i) => (
-        <article class="group relative bg-bone-warm p-9 lg:p-11" data-reveal>
+        <article class="card card-hover group relative p-9 lg:p-11" data-reveal>
           <span class="font-display text-base tracking-[0.28em] text-gold-ink">
             {String(i + 1).padStart(2, "0")}
           </span>
