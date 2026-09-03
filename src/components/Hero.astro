@@ -7,33 +7,32 @@ const waHref = `https://wa.me/${site.whatsapp}`;
 ---
 
 <section class="relative overflow-hidden">
-  <!-- Warm wash + a faint column grid: the page reads as a printed sheet. -->
-  <div class="absolute inset-0 -z-10 paper-panel"></div>
+  <div class="absolute inset-0 -z-20 paper-panel"></div>
   <div
-    class="aura absolute -z-10 -top-40 -right-32 w-[46rem] h-[46rem] rounded-full blur-3xl pointer-events-none"
-    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 30%, transparent) 0%, transparent 68%);"
-  >
-  </div>
-  <div
-    class="absolute inset-0 -z-10 hidden lg:block opacity-[0.55]"
-    style="background-image: repeating-linear-gradient(to right, transparent 0 calc(12.5% - 1px), var(--color-mist) calc(12.5% - 1px) 12.5%); mask-image: linear-gradient(to bottom, transparent, black 18%, black 72%, transparent);"
+    class="aura absolute -z-20 -top-40 -left-40 w-[46rem] h-[46rem] rounded-full blur-3xl pointer-events-none"
+    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 26%, transparent) 0%, transparent 68%);"
   >
   </div>
 
-  <Seal class="pointer-events-none absolute -z-10 hidden lg:block w-[42rem] h-[42rem] -right-[13rem] top-[2rem] opacity-[0.72]" />
+  <!-- El sello queda detrás del titular, descentrado hacia la derecha.
+       El texto le pasa por encima: eso es lo que rompe la simetría. -->
+  <Seal class="pointer-events-none absolute -z-10 hidden lg:block w-[40rem] h-[40rem] right-[-8rem] top-[6rem] opacity-[0.78]" />
 
   <div class="shell relative pt-16 pb-14 lg:pt-24 lg:pb-20">
-    <div class="grid gap-14 lg:grid-cols-12 lg:gap-x-14 items-start">
-      <!-- ---------------- Statement ---------------- -->
-      <div class="lg:col-span-7" data-reveal-stagger="90">
-        <p class="eyebrow mb-7" data-reveal>Firma fundada en {site.foundedYear}</p>
+    <p class="eyebrow mb-8" data-reveal>Firma fundada en {site.foundedYear}</p>
 
-        <h1 class="text-display font-light mb-8 max-w-[13ch]" data-split data-split-step="48">
-          Defensa legal y contable
-          <span class="block italic font-normal text-gold-ink">para quien la necesita.</span>
-        </h1>
+    <!-- Cada línea entra más adentro que la anterior: escalera editorial,
+         no bloque centrado. -->
+    <h1 class="text-display font-light relative z-10 mb-12 lg:mb-14 lg:max-w-[60%]" data-split data-split-step="46">
+      <span class="block">Defensa legal</span>
+      <span class="block lg:pl-[4.5vw]">y contable</span>
+      <span class="block lg:pl-[9vw] italic font-normal text-gold-ink">para quien la necesita.</span>
+    </h1>
 
-        <p class="text-lead text-slate max-w-[46ch] mb-9" data-reveal>
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-x-12 items-start">
+      <!-- La columna de texto es angosta y se queda a la izquierda. -->
+      <div class="lg:col-span-5 relative z-10">
+        <p class="text-lead text-slate max-w-[42ch] mb-9" data-reveal>
           Controvertimos créditos fiscales, multas y procedimientos administrativos
           ante el SAT, IMSS, INFONAVIT, IMPI y autoridades aduaneras a nivel nacional.
           Acompañamos a contribuyentes y empresariado con estrategia, no con improvisación.
@@ -56,9 +55,16 @@ const waHref = `https://wa.me/${site.whatsapp}`;
         </p>
       </div>
 
-      <!-- ---------------- Dossier ---------------- -->
-      <aside class="lg:col-span-5 lg:pt-3 parallax" data-parallax="0.055" data-reveal>
-        <div class="on-ink ink-panel ink-panel-edge rounded-[var(--radius-xl)] text-bone p-9 lg:p-11 lg:-mb-24 relative z-10">
+      <!-- La ficha arranca más abajo, se recorre a la derecha, se inclina
+           un grado y medio y se monta sobre la fila de cifras. -->
+      <aside
+        class="lg:col-span-6 lg:col-start-7 lg:mt-12 lg:-mb-32 parallax relative z-20"
+        data-parallax="0.05"
+        data-reveal
+      >
+        <div
+          class="on-ink ink-panel ink-panel-edge rounded-[var(--radius-xl)] text-bone p-9 lg:p-11 lg:rotate-[-1.5deg] transition-transform duration-700 ease-out hover:lg:rotate-0"
+        >
           <div class="flex items-center justify-between mb-8">
             <p class="eyebrow">Respaldo institucional</p>
             <span class="font-display text-xs tracking-[0.3em] text-bone/60">01</span>
@@ -96,8 +102,8 @@ const waHref = `https://wa.me/${site.whatsapp}`;
   </div>
 
   <!-- ---------------- Ledger of figures ---------------- -->
-  <div class="shell relative lg:pt-16">
-    <div class="grid grid-cols-2 lg:grid-cols-4 border-t border-mist" data-reveal-stagger="70">
+  <div class="shell relative lg:pt-24">
+    <div class="grid grid-cols-2 lg:grid-cols-4 lg:w-[68%] border-t border-mist" data-reveal-stagger="70">
       {figures.map((f, i) => (
         <div
           class:list={[
