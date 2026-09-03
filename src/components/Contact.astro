@@ -25,19 +25,19 @@ const channels = [
         inicial sin costo. Atendemos en toda la República Mexicana.
       </p>
 
-      <ul class="border-t border-mist">
+      <ul class="border-t border-line">
         {channels.map((c) => (
-          <li class="border-b border-mist">
+          <li class="border-b border-line">
             <a
               href={c.href}
               target={c.href.startsWith("http") ? "_blank" : undefined}
               rel={c.href.startsWith("http") ? "noopener" : undefined}
               class="group flex items-center gap-5 py-5"
             >
-              <span class="text-gold-ink shrink-0"><Icon name={c.icon} size={22} stroke={1.3} /></span>
+              <span class="text-bronze-ink shrink-0"><Icon name={c.icon} size={22} stroke={1.3} /></span>
               <span class="min-w-0">
                 <span class="block text-[0.6875rem] uppercase tracking-[0.16em] text-slate">{c.label}</span>
-                <span class="block text-base mt-1 [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-gold-ink">
+                <span class="block text-base mt-1 [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-bronze-ink">
                   {c.value}
                 </span>
               </span>
@@ -51,7 +51,7 @@ const channels = [
       <ul class="grid grid-cols-2 gap-x-6 gap-y-3.5">
         {offices.map((o) => (
           <li class="flex items-center gap-2.5 text-[0.9375rem]">
-            <Icon name="pin" size={15} stroke={1.3} class="text-gold-ink shrink-0" />
+            <Icon name="pin" size={15} stroke={1.3} class="text-bronze-ink shrink-0" />
             {o.city}
           </li>
         ))}
@@ -71,7 +71,7 @@ const channels = [
         </div>
 
         <div>
-          <label class="field-label" for="nombre">Nombre completo <span class="text-gold-ink">*</span></label>
+          <label class="field-label" for="nombre">Nombre completo <span class="text-bronze-ink">*</span></label>
           <input id="nombre" name="nombre" class="field" required autocomplete="name" />
           <p class="hidden mt-2 text-sm text-red-700" data-error-for="nombre"></p>
         </div>
@@ -92,7 +92,7 @@ const channels = [
         </div>
 
         <div>
-          <label class="field-label" for="mensaje">Describe tu situación <span class="text-gold-ink">*</span></label>
+          <label class="field-label" for="mensaje">Describe tu situación <span class="text-bronze-ink">*</span></label>
           <textarea
             id="mensaje"
             name="mensaje"

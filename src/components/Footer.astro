@@ -7,10 +7,10 @@ const waHref = `https://wa.me/${site.whatsapp}`;
 const half = Math.ceil(services.length / 2);
 ---
 
-<footer class="bg-bone-warm border-t border-ink/10 relative overflow-hidden">
+<footer class="bg-parchment border-t border-ink/10 relative overflow-hidden">
   <div
     class="aura absolute -z-0 -bottom-56 left-[-8rem] w-[42rem] h-[42rem] rounded-full blur-3xl pointer-events-none"
-    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 20%, transparent) 0%, transparent 68%);"
+    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-bronze) 20%, transparent) 0%, transparent 68%);"
   >
   </div>
 
@@ -21,13 +21,13 @@ const half = Math.ceil(services.length / 2);
         <p class="text-[0.9375rem] text-slate leading-relaxed max-w-[34ch]">
           {site.legalName}. Firma fundada en {site.foundedYear}.
         </p>
-        <div class="rule-gold my-7 max-w-[12rem]"></div>
+        <div class="rule-bronze my-7 max-w-[12rem]"></div>
         <p class="text-[0.6875rem] uppercase tracking-[0.18em] text-slate">{site.coverage}</p>
       </div>
 
       <nav class="lg:col-span-5 grid grid-cols-2 gap-x-8" aria-label="Áreas de práctica">
         <div>
-          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mb-5">Servicios</h2>
+          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bronze-ink mb-5">Servicios</h2>
           <ul class="space-y-3 text-[0.9375rem] text-slate">
             {services.slice(0, half).map((s) => (
               <li>
@@ -37,7 +37,7 @@ const half = Math.ceil(services.length / 2);
           </ul>
         </div>
         <div>
-          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mb-5">Más áreas</h2>
+          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bronze-ink mb-5">Más áreas</h2>
           <ul class="space-y-3 text-[0.9375rem] text-slate">
             {services.slice(half).map((s) => (
               <li>
@@ -45,7 +45,7 @@ const half = Math.ceil(services.length / 2);
               </li>
             ))}
           </ul>
-          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mt-8 mb-5">Firma</h2>
+          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bronze-ink mt-8 mb-5">Firma</h2>
           <ul class="space-y-3 text-[0.9375rem] text-slate">
             <li><a href="/nosotros/" class="link-line hover:text-ink transition-colors">Nosotros</a></li>
             <li><a href="/contacto/" class="link-line hover:text-ink transition-colors">Contacto</a></li>
@@ -54,27 +54,27 @@ const half = Math.ceil(services.length / 2);
       </nav>
 
       <div class="lg:col-span-3">
-        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mb-5">Contacto</h2>
+        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bronze-ink mb-5">Contacto</h2>
         <ul class="space-y-4 text-sm text-slate">
           <li>
             <a href={`mailto:${site.email}`} class="flex items-start gap-3 hover:text-ink transition-colors">
-              <Icon name="mail" size={17} stroke={1.3} class="mt-0.5 shrink-0 text-gold-ink" />
+              <Icon name="mail" size={17} stroke={1.3} class="mt-0.5 shrink-0 text-bronze-ink" />
               <span class="[overflow-wrap:anywhere]">{site.email}</span>
             </a>
           </li>
           <li>
             <a href={waHref} target="_blank" rel="noopener" class="flex items-center gap-3 hover:text-ink transition-colors">
-              <Icon name="whatsapp" size={16} class="text-gold-ink" />
+              <Icon name="whatsapp" size={16} class="text-bronze-ink" />
               {site.whatsappDisplay}
             </a>
           </li>
         </ul>
 
-        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mt-8 mb-5">Sedes</h2>
+        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bronze-ink mt-8 mb-5">Sedes</h2>
         <ul class="space-y-2.5 text-[0.9375rem] text-slate">
           {offices.map((o) => (
             <li class="flex items-center gap-2.5">
-              <span class="h-px w-3 bg-gold"></span>
+              <span class="h-px w-3 bg-bronze"></span>
               {o.city}
             </li>
           ))}

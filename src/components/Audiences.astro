@@ -3,10 +3,10 @@ import { audiences } from "../data/site";
 import Icon from "./Icon.astro";
 ---
 
-<section class="py-section bg-bone-warm relative overflow-hidden">
+<section class="py-section bg-parchment relative overflow-hidden">
   <div
     class="aura absolute -z-0 -top-40 right-[-10rem] w-[40rem] h-[40rem] rounded-full blur-3xl pointer-events-none"
-    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 22%, transparent) 0%, transparent 68%);"
+    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-bronze) 22%, transparent) 0%, transparent 68%);"
   >
   </div>
 
@@ -21,7 +21,7 @@ import Icon from "./Icon.astro";
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger="80">
       {audiences.map((a) => (
         <article class="card card-hover p-8 lg:p-9 flex flex-col" data-reveal>
-          <span class="text-gold-ink mb-7">
+          <span class="text-bronze-ink mb-7">
             <Icon name={a.icon} size={32} stroke={1.2} />
           </span>
           <h3 class="text-h3 font-normal mb-3.5">{a.name}</h3>

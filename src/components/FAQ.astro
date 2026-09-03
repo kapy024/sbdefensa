@@ -3,7 +3,7 @@ import { faq } from "../data/site";
 import Icon from "./Icon.astro";
 ---
 
-<section class="py-section bg-bone-warm">
+<section class="py-section bg-parchment">
   <div class="shell grid gap-12 lg:grid-cols-12 lg:gap-x-16">
     <div class="lg:col-span-4" data-reveal>
       <p class="eyebrow mb-5">Preguntas frecuentes</p>
@@ -14,17 +14,17 @@ import Icon from "./Icon.astro";
       </p>
     </div>
 
-    <div class="lg:col-span-8 border-t border-mist" data-reveal-stagger="45">
+    <div class="lg:col-span-8 border-t border-line" data-reveal-stagger="45">
       {faq.map((item, i) => (
-        <details class="group border-b border-mist" open={i === 0} data-reveal>
+        <details class="group border-b border-line" open={i === 0} data-reveal>
           <summary
             class="flex items-start justify-between gap-8 py-6 cursor-pointer list-none select-none"
           >
-            <h3 class="font-display text-[1.15rem] lg:text-[1.3rem] font-medium leading-snug transition-colors duration-300 group-hover:text-gold-ink">
+            <h3 class="font-display text-[1.15rem] lg:text-[1.3rem] font-medium leading-snug transition-colors duration-300 group-hover:text-bronze-ink">
               {item.q}
             </h3>
             <span
-              class="shrink-0 mt-1 text-gold-ink transition-transform duration-400 ease-out group-open:rotate-45"
+              class="shrink-0 mt-1 text-bronze-ink transition-transform duration-400 ease-out group-open:rotate-45"
             >
               <Icon name="plus" size={20} stroke={1.4} />
             </span>

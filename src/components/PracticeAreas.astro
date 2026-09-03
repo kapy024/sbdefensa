@@ -30,10 +30,10 @@ const pad = (n: number) => String(n + 1).padStart(2, "0");
               data-panel={i}
               data-active={i === 0 ? "" : undefined}
             >
-              <div class="font-display text-[9rem] leading-[0.8] font-light text-gold-ink/15 select-none">
+              <div class="font-display text-[9rem] leading-[0.8] font-light text-bronze-ink/15 select-none">
                 {pad(i)}
               </div>
-              <div class="text-gold-ink mt-8 mb-6">
+              <div class="text-bronze-ink mt-8 mb-6">
                 <Icon name={s.icon} size={46} stroke={1.1} />
               </div>
               <h3 class="text-h3 font-normal mb-4 max-w-[16ch]">{s.name}</h3>
@@ -44,18 +44,15 @@ const pad = (n: number) => String(n + 1).padStart(2, "0");
       </div>
 
       <!-- ---- Lista recorrible ---- -->
-      <ol class="lg:col-span-7 border-t border-mist">
+      <ol class="lg:col-span-7 border-t border-line">
         {services.map((s, i) => (
-          <li class="border-b border-mist" data-area={i}>
+          <li class="border-b border-line" data-area={i}>
             <a
               href={`/servicios/${s.slug}/`}
               class="group flex items-start gap-5 lg:gap-7 py-7 lg:py-9 transition-colors duration-300"
             >
-              <span class="font-display text-sm tracking-[0.22em] text-gold-ink/70 pt-2 shrink-0 tnum">
-                {pad(i)}
-              </span>
 
-              <span class="lg:hidden text-gold-ink pt-1 shrink-0">
+              <span class="lg:hidden text-bronze-ink pt-1 shrink-0">
                 <Icon name={s.icon} size={26} stroke={1.25} />
               </span>
 
@@ -68,7 +65,7 @@ const pad = (n: number) => String(n + 1).padStart(2, "0");
                 </span>
               </span>
 
-              <span class="shrink-0 self-center text-gold-ink opacity-0 -translate-x-2 transition-all duration-400 ease-out group-hover:opacity-100 group-hover:translate-x-0">
+              <span class="shrink-0 self-center text-bronze-ink opacity-0 -translate-x-2 transition-all duration-400 ease-out group-hover:opacity-100 group-hover:translate-x-0">
                 <Icon name="arrow-right" size={22} stroke={1.4} />
               </span>
             </a>

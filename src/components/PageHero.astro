@@ -12,7 +12,7 @@ const { eyebrow, index, back } = Astro.props;
   <div class="absolute inset-0 -z-10 paper-panel"></div>
   <div
     class="aura absolute -z-10 -top-40 right-[-8rem] w-[40rem] h-[40rem] rounded-full blur-3xl pointer-events-none"
-    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 30%, transparent) 0%, transparent 68%);"
+    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-bronze) 30%, transparent) 0%, transparent 68%);"
   >
   </div>
 
@@ -20,7 +20,7 @@ const { eyebrow, index, back } = Astro.props;
     {back && (
       <a
         href={back.href}
-        class="link-line inline-flex items-center gap-2 text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink font-semibold mb-10"
+        class="link-line inline-flex items-center gap-2 text-[0.6875rem] uppercase tracking-[0.18em] text-bronze-ink font-semibold mb-10"
       >
         <span aria-hidden="true">&larr;</span> {back.label}
       </a>
@@ -37,7 +37,7 @@ const { eyebrow, index, back } = Astro.props;
       <slot name="title" />
     </h1>
 
-    <div class="rule-gold mb-8 max-w-sm"></div>
+    <div class="rule-bronze mb-8 max-w-sm"></div>
 
     <div class="text-lead text-slate max-w-[58ch] leading-relaxed">
       <slot />

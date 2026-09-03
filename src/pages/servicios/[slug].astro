@@ -35,7 +35,7 @@ const waHref = `https://wa.me/${site.whatsapp}`;
     <div class="shell grid gap-14 lg:grid-cols-12 lg:gap-x-16">
       <div class="lg:col-span-7 xl:col-span-8">
         <div class="flex items-start gap-5 mb-10" data-reveal>
-          <span class="text-gold-ink shrink-0">
+          <span class="text-bronze-ink shrink-0">
             <Icon name={service.icon} size={40} stroke={1.2} />
           </span>
           <div>
@@ -44,10 +44,10 @@ const waHref = `https://wa.me/${site.whatsapp}`;
           </div>
         </div>
 
-        <ul class="border-t border-mist" data-reveal-stagger="40">
+        <ul class="border-t border-line" data-reveal-stagger="40">
           {service.bullets.map((b) => (
-            <li class="flex gap-4 py-5 border-b border-mist" data-reveal>
-              <Icon name="check" size={17} stroke={1.5} class="text-gold-ink mt-1 shrink-0" />
+            <li class="flex gap-4 py-5 border-b border-line" data-reveal>
+              <Icon name="check" size={17} stroke={1.5} class="text-bronze-ink mt-1 shrink-0" />
               <span class="text-[0.9375rem] leading-relaxed">{b}</span>
             </li>
           ))}
@@ -76,14 +76,14 @@ const waHref = `https://wa.me/${site.whatsapp}`;
       <aside class="lg:col-span-5 xl:col-span-4" data-reveal>
         <div class="lg:sticky lg:top-28">
           <p class="eyebrow mb-6">Otras áreas</p>
-          <ul class="border-t border-mist">
+          <ul class="border-t border-line">
             {others.map((s) => (
-              <li class="border-b border-mist">
+              <li class="border-b border-line">
                 <a
                   href={`/servicios/${s.slug}/`}
-                  class="group flex items-start gap-4 py-4 transition-colors duration-300 hover:text-gold-ink"
+                  class="group flex items-start gap-4 py-4 transition-colors duration-300 hover:text-bronze-ink"
                 >
-                  <span class="text-gold-ink mt-0.5 shrink-0 transition-transform duration-400 group-hover:-translate-y-0.5">
+                  <span class="text-bronze-ink mt-0.5 shrink-0 transition-transform duration-400 group-hover:-translate-y-0.5">
                     <Icon name={s.icon} size={20} />
                   </span>
                   <span class="min-w-0">

@@ -21,7 +21,7 @@
     inset: 0;
     z-index: -10;
     overflow: hidden;
-    background: var(--color-bone);
+    background: var(--color-paper);
   }
 
   .mesh-blob {
@@ -34,25 +34,25 @@
   /* Ámbar cálido arriba a la derecha: el foco de luz. */
   .mesh-a {
     width: 52vw; height: 52vw; top: -18vw; right: -10vw;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 62%, transparent), transparent 68%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-bronze) 62%, transparent), transparent 68%);
     animation: float-a 24s ease-in-out infinite;
   }
   /* Oro pálido al centro: rellena el medio sin ensuciar el texto. */
   .mesh-b {
     width: 44vw; height: 44vw; top: 8vw; left: 22vw;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-gold-light) 55%, transparent), transparent 70%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-bronze-light) 55%, transparent), transparent 70%);
     animation: float-b 31s ease-in-out infinite;
   }
   /* Arena a la izquierda: peso en el lado del titular. */
   .mesh-c {
     width: 40vw; height: 40vw; top: -6vw; left: -14vw;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-bone-deep) 92%, transparent), transparent 66%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-parchment-deep) 92%, transparent), transparent 66%);
     animation: float-c 27s ease-in-out infinite;
   }
   /* Oro profundo abajo: ancla la composición. */
   .mesh-d {
     width: 46vw; height: 46vw; bottom: -20vw; left: 8vw;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-gold-deep) 34%, transparent), transparent 70%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-bronze) 34%, transparent), transparent 70%);
     animation: float-d 35s ease-in-out infinite;
   }
   /* Un toque de tinta, muy diluido: da contraste sin ensuciar. */
@@ -71,7 +71,7 @@
     border-radius: 50%;
     filter: blur(70px);
     opacity: 0;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-gold-light) 58%, transparent), transparent 66%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-bronze-light) 58%, transparent), transparent 66%);
     transition: opacity 900ms var(--ease-out-quint);
   }
 

@@ -262,3 +262,14 @@ export const figures = [
   { value: "4", suffix: "", label: "Sedes en el país" },
   { value: "32", suffix: "", label: "Estados con cobertura" },
 ] as const;
+
+/** Términos generales para impugnar. El cómputo exacto depende de la fecha
+ *  y forma de notificación — verificar cada caso. Fuente: CFF 121, LFPCA 13,
+ *  Ley de Amparo 17, Ley del Seguro Social 294, Ley Aduanera 150. */
+export const deadlines = [
+  { action: "Recurso de revocación", days: 30, vs: "SAT" },
+  { action: "Juicio de nulidad", days: 30, vs: "TFJA" },
+  { action: "Amparo indirecto", days: 15, vs: "Juzgado de Distrito" },
+  { action: "Recurso de inconformidad", days: 15, vs: "IMSS · INFONAVIT" },
+  { action: "Pruebas en PAMA", days: 10, vs: "Aduana" },
+] as const;

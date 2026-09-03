@@ -34,7 +34,7 @@ const values = [
   <PageHero eyebrow="Nosotros">
     <span slot="title">
       Una firma con respaldo institucional,
-      <span class="italic text-gold-ink">criterio y oficio.</span>
+      <span class="italic text-bronze-ink">criterio y oficio.</span>
     </span>
     SBDefensa —Sámano Burkolter, Defensa Fiscal & Contable— se fundó en {site.foundedYear}
     con un objetivo claro: poner al alcance de personas y empresas una defensa
@@ -58,7 +58,7 @@ const values = [
         <ul class="space-y-3.5">
           {values.map((v) => (
             <li class="flex gap-3.5 text-[0.9375rem] text-slate leading-relaxed">
-              <span class="h-px w-4 bg-gold mt-3 shrink-0"></span>
+              <span class="h-px w-4 bg-bronze mt-3 shrink-0"></span>
               {v}
             </li>
           ))}
@@ -67,7 +67,7 @@ const values = [
     </div>
   </section>
 
-  <section class="py-section-sm bg-bone-warm">
+  <section class="py-section-sm bg-parchment">
     <div class="shell">
       <div class="flex flex-wrap items-end justify-between gap-8 mb-10" data-reveal>
         <div>
@@ -81,11 +81,8 @@ const values = [
       </div>
 
       <ul class="grid grid-cols-2 lg:grid-cols-4 hairline-grid" data-reveal-stagger="70">
-        {offices.map((o, i) => (
-          <li class="bg-bone-warm p-8 lg:p-10" data-reveal>
-            <span class="font-display text-sm tracking-[0.28em] text-gold-ink/70">
-              {String(i + 1).padStart(2, "0")}
-            </span>
+        {offices.map((o) => (
+          <li class="bg-parchment p-8 lg:p-10" data-reveal>
             <p class="font-display text-2xl lg:text-[1.75rem] font-normal mt-5 leading-tight">
               {o.city}
             </p>

@@ -28,11 +28,11 @@ const initials = (name: string) =>
         <article class="card p-9 lg:p-11 flex flex-col" data-reveal>
           <!-- Monogram seal: a printed ex-libris, not a photo placeholder. -->
           <div class="relative w-24 h-24 mb-8 shrink-0">
-            <div class="absolute inset-0 rounded-full border border-gold/70"></div>
-            <div class="absolute inset-[6px] rounded-full border border-gold/35"></div>
-            <div class="absolute inset-[6px] rounded-full" style="background: radial-gradient(circle at 32% 26%, color-mix(in srgb, var(--color-gold) 22%, transparent), transparent 70%)"></div>
+            <div class="absolute inset-0 rounded-full border border-bronze/70"></div>
+            <div class="absolute inset-[6px] rounded-full border border-bronze/35"></div>
+            <div class="absolute inset-[6px] rounded-full" style="background: radial-gradient(circle at 32% 26%, color-mix(in srgb, var(--color-bronze) 22%, transparent), transparent 70%)"></div>
             <span
-              class="absolute inset-0 grid place-items-center font-display text-2xl tracking-[0.06em] text-gold-ink"
+              class="absolute inset-0 grid place-items-center font-display text-2xl tracking-[0.06em] text-bronze-ink"
             >
               {initials(m.name)}
             </span>
@@ -50,12 +50,12 @@ const initials = (name: string) =>
 
           {m.credentials.length > 0 && (
             <div class="pt-8">
-              <div class="rule-gold mb-7"></div>
+              <div class="rule-bronze mb-7"></div>
               <p class="eyebrow mb-6">Trayectoria</p>
               <ol class="space-y-4">
                 {m.credentials.map((c, i) => (
                   <li class="flex gap-4 text-[0.9375rem] leading-relaxed">
-                    <span class="font-display text-xs tracking-[0.2em] text-gold-ink/70 pt-1.5 tnum shrink-0">
+                    <span class="font-display text-xs tracking-[0.2em] text-bronze-ink/70 pt-1.5 tnum shrink-0">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span class="text-slate">{c}</span>

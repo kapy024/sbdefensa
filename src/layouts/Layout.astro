@@ -50,7 +50,7 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b0b0c" />
+    <meta name="theme-color" content="#0d1411" />
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="canonical" href={canonical} />
     <meta name="generator" content={Astro.generator} />
@@ -73,7 +73,7 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@300..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -93,10 +93,10 @@ const jsonLd = {
     </script>
   </head>
 
-  <body class="bg-bone text-ink antialiased">
+  <body class="bg-paper text-ink antialiased">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-ink focus:text-bone focus:px-5 focus:py-3"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-ink focus:text-paper focus:px-5 focus:py-3"
     >
       Saltar al contenido
     </a>
@@ -108,6 +108,38 @@ const jsonLd = {
       <slot />
     </main>
     <Footer />
+
+    <script>
+      import Lenis from "lenis";
+      import gsap from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let lenis;
+
+      // Scroll suave. GSAP maneja el reloj para que ScrollTrigger y Lenis
+      // avancen en el mismo frame.
+      function startLenis() {
+        if (REDUCED || lenis) return;
+        lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((t) => lenis.raf(t * 1000));
+        gsap.ticker.lagSmoothing(0);
+      }
+
+      // Con View Transitions cada página monta sus propios ScrollTriggers;
+      // los de la página saliente se matan antes del swap.
+      document.addEventListener("astro:before-swap", () => {
+        ScrollTrigger.getAll().forEach((t) => t.kill());
+      });
+      document.addEventListener("astro:page-load", () => {
+        startLenis();
+        lenis?.scrollTo(0, { immediate: true });
+        ScrollTrigger.refresh();
+      });
+    </script>
 
     <script>
       const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
