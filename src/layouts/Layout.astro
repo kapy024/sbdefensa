@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { site } from "../data/site";
+import { site, offices, services } from "../data/site";
 
 interface Props {
   title?: string;
@@ -10,14 +10,38 @@ interface Props {
   canonicalPath?: string;
 }
 
-const {
-  title,
-  description = site.description,
-  canonicalPath = "/",
-} = Astro.props;
+const { title, description = site.description, canonicalPath = "/" } = Astro.props;
 
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} — ${site.tagline}`;
 const canonical = `${site.url}${canonicalPath}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  name: site.legalName,
+  alternateName: site.name,
+  url: site.url,
+  email: site.email,
+  telephone: `+${site.whatsapp}`,
+  description: site.description,
+  foundingDate: String(site.foundedYear),
+  areaServed: { "@type": "Country", name: "México" },
+  address: offices.map((o) => ({
+    "@type": "PostalAddress",
+    addressLocality: o.city,
+    addressCountry: "MX",
+  })),
+  knowsLanguage: "es-MX",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Áreas de práctica",
+    itemListElement: services.map((s) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: s.name, description: s.short },
+      url: `${site.url}/servicios/${s.slug}/`,
+    })),
+  },
+};
 ---
 
 <!doctype html>
@@ -25,6 +49,7 @@ const canonical = `${site.url}${canonicalPath}`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0b0c" />
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="canonical" href={canonical} />
     <meta name="generator" content={Astro.generator} />
@@ -33,6 +58,7 @@ const canonical = `${site.url}${canonicalPath}`;
     <meta name="description" content={description} />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -46,21 +72,69 @@ const canonical = `${site.url}${canonicalPath}`;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@300..700&display=swap"
       rel="stylesheet"
     />
+
+    <script is:inline set:html={JSON.stringify(jsonLd)} type="application/ld+json" />
+
+    {/* Flag JS before first paint so reveal styles never hide content
+        for users without scripts. */}
+    <script is:inline>
+      document.documentElement.classList.add("has-js");
+    </script>
   </head>
+
   <body class="bg-bone text-ink antialiased">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-ink focus:text-bone focus:px-4 focus:py-2 focus:z-50"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-ink focus:text-bone focus:px-5 focus:py-3"
     >
       Saltar al contenido
     </a>
+
     <Header />
     <main id="main">
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Scroll reveal. Elements opt in with [data-reveal]; an optional
+      // [data-reveal-stagger] on a parent cascades its children.
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const targets = document.querySelectorAll<HTMLElement>("[data-reveal]");
+
+      if (reduced || !("IntersectionObserver" in window)) {
+        targets.forEach((el) => el.classList.add("is-in"));
+      } else {
+        document.querySelectorAll<HTMLElement>("[data-reveal-stagger]").forEach((group) => {
+          const step = Number(group.dataset.revealStagger) || 60;
+          group.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el, i) => {
+            el.style.setProperty("--reveal-delay", `${i * step}ms`);
+          });
+        });
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-in");
+              io.unobserve(entry.target);
+            });
+          },
+          { rootMargin: "0px 0px -12% 0px", threshold: 0.05 }
+        );
+
+        targets.forEach((el) => io.observe(el));
+
+        // Failsafe: if anything is still hidden after 4s (script error,
+        // throttled observer, restored tab), show it. Content must never
+        // be stuck invisible.
+        window.setTimeout(() => {
+          targets.forEach((el) => el.classList.add("is-in"));
+        }, 4000);
+      }
+    </script>
   </body>
 </html>

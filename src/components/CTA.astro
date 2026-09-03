@@ -1,31 +1,35 @@
 ---
 import { site } from "../data/site";
+import Icon from "./Icon.astro";
+
+const waHref = `https://wa.me/${site.whatsapp}`;
 ---
 
-<section class="py-20">
-  <div class="container-prose">
-    <div class="bg-ink text-bone p-12 lg:p-16 relative overflow-hidden">
-      <div class="absolute -top-32 -right-32 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+<section class="py-section-sm">
+  <div class="shell">
+    <div class="on-ink ink-panel text-bone p-10 lg:p-16 relative overflow-hidden shadow-ink" data-reveal>
       <div class="relative max-w-3xl">
-        <p class="eyebrow text-gold-light mb-4">¿Tienes un asunto urgente?</p>
-        <h2 class="text-4xl md:text-5xl text-bone mb-6 leading-tight">
-          Los plazos para impugnar son fatales.<br />
-          <span class="italic text-gold">No los dejes correr.</span>
+        <p class="eyebrow mb-6">¿Tienes un asunto urgente?</p>
+
+        <h2 class="text-h2 font-light text-bone mb-7 leading-[1.08]">
+          Los plazos para impugnar son fatales.
+          <span class="block italic text-gold">No los dejes correr.</span>
         </h2>
-        <p class="text-bone/80 leading-relaxed mb-8 text-lg max-w-xl">
+
+        <div class="rule-gold mb-8 max-w-sm"></div>
+
+        <p class="text-bone/75 leading-relaxed mb-9 text-lead max-w-xl">
           Si recibiste una notificación del SAT, IMSS, INFONAVIT o aduana,
           contáctanos cuanto antes. La primera valoración es sin costo.
         </p>
+
         <div class="flex flex-wrap gap-3">
-          <a href="/contacto/" class="btn-primary bg-gold-dark border-gold-dark hover:bg-gold hover:border-gold hover:text-ink">
+          <a href="/contacto/" class="btn btn-gold">
             Solicita asesoría
+            <Icon name="arrow-right" size={17} stroke={1.5} />
           </a>
-          <a
-            href={`https://wa.me/${site.whatsapp}`}
-            target="_blank"
-            rel="noopener"
-            class="btn-secondary border-bone text-bone hover:bg-bone hover:text-ink"
-          >
+          <a href={waHref} target="_blank" rel="noopener" class="btn btn-on-ink">
+            <Icon name="whatsapp" size={17} />
             WhatsApp directo
           </a>
         </div>

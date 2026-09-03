@@ -1,8 +1,29 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
 import Team from "../components/Team.astro";
 import CTA from "../components/CTA.astro";
-import { site } from "../data/site";
+import { site, offices } from "../data/site";
+
+const pillars = [
+  {
+    label: "Misión",
+    title: "Defender con estrategia.",
+    body: "Acompañar a contribuyentes y empresariado en la defensa de sus derechos frente a las autoridades fiscales, administrativas, aduaneras y de seguridad social, con criterio técnico y compromiso ético.",
+  },
+  {
+    label: "Visión",
+    title: "Referente en la región norte.",
+    body: "Consolidarnos como una firma de referencia en defensa fiscal y contable a nivel nacional, especialmente en la región norte de México, manteniendo cercanía con cada cliente.",
+  },
+];
+
+const values = [
+  "Integridad y reserva profesional",
+  "Estrategia clara antes de actuar",
+  "Comunicación franca con el cliente",
+  "Honorarios transparentes",
+];
 ---
 
 <Layout
@@ -10,52 +31,68 @@ import { site } from "../data/site";
   canonicalPath="/nosotros/"
   description={`${site.legalName}: firma fiscal y contable fundada en ${site.foundedYear} con dirección integrada por ex-PRODECON y ex-TFJFA.`}
 >
-  <section class="bg-ink text-bone py-20">
-    <div class="container-prose max-w-3xl">
-      <p class="eyebrow text-gold-light mb-4">Nosotros</p>
-      <h1 class="text-bone text-5xl md:text-6xl mb-6 leading-tight">
-        Una firma con respaldo institucional,<br />
-        <span class="italic text-gold">criterio y oficio.</span>
-      </h1>
-      <p class="text-bone/80 leading-relaxed text-lg">
-        SBDefensa —Sámano Burkolter, Defensa Fiscal & Contable— se fundó en {site.foundedYear}
-        con un objetivo claro: poner al alcance de personas y empresas una defensa
-        legal y contable construida con la misma seriedad que la administración
-        pública exige a sus contribuyentes.
-      </p>
+  <PageHero eyebrow="Nosotros">
+    <span slot="title">
+      Una firma con respaldo institucional,
+      <span class="italic text-gold">criterio y oficio.</span>
+    </span>
+    SBDefensa —Sámano Burkolter, Defensa Fiscal & Contable— se fundó en {site.foundedYear}
+    con un objetivo claro: poner al alcance de personas y empresas una defensa
+    legal y contable construida con la misma seriedad que la administración
+    pública exige a sus contribuyentes.
+  </PageHero>
+
+  <section class="py-section">
+    <div class="shell grid gap-12 lg:grid-cols-3 lg:gap-x-14" data-reveal-stagger="90">
+      {pillars.map((p) => (
+        <div data-reveal>
+          <p class="eyebrow mb-5">{p.label}</p>
+          <h2 class="text-h3 font-normal mb-5">{p.title}</h2>
+          <p class="text-slate text-[0.9375rem] leading-relaxed">{p.body}</p>
+        </div>
+      ))}
+
+      <div data-reveal>
+        <p class="eyebrow mb-5">Valores</p>
+        <h2 class="text-h3 font-normal mb-5">Lo que no negociamos.</h2>
+        <ul class="space-y-3.5">
+          {values.map((v) => (
+            <li class="flex gap-3.5 text-[0.9375rem] text-slate leading-relaxed">
+              <span class="h-px w-4 bg-gold mt-3 shrink-0"></span>
+              {v}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section class="py-20">
-    <div class="container-prose grid gap-12 lg:grid-cols-3">
-      <div>
-        <p class="eyebrow mb-3">Misión</p>
-        <h2 class="text-2xl mb-4">Defender con estrategia.</h2>
-        <p class="text-slate text-sm leading-relaxed">
-          Acompañar a contribuyentes y empresariado en la defensa de sus
-          derechos frente a las autoridades fiscales, administrativas, aduaneras
-          y de seguridad social, con criterio técnico y compromiso ético.
+  <section class="py-section-sm bg-bone-warm">
+    <div class="shell">
+      <div class="flex flex-wrap items-end justify-between gap-8 mb-10" data-reveal>
+        <div>
+          <p class="eyebrow mb-5">Presencia</p>
+          <h2 class="text-h2 font-light">Cuatro sedes, cobertura nacional.</h2>
+        </div>
+        <p class="text-slate max-w-[40ch] text-[0.9375rem] leading-relaxed">
+          La presencia física está en cuatro ciudades, pero la representación
+          legal aplica en toda la República Mexicana.
         </p>
       </div>
-      <div>
-        <p class="eyebrow mb-3">Visión</p>
-        <h2 class="text-2xl mb-4">Referente en la región norte.</h2>
-        <p class="text-slate text-sm leading-relaxed">
-          Consolidarnos como una firma de referencia en defensa fiscal y
-          contable a nivel nacional, especialmente en la región norte de
-          México, manteniendo cercanía con cada cliente.
-        </p>
-      </div>
-      <div>
-        <p class="eyebrow mb-3">Valores</p>
-        <h2 class="text-2xl mb-4">Lo que no negociamos.</h2>
-        <ul class="text-slate text-sm leading-relaxed space-y-2">
-          <li>· Integridad y reserva profesional</li>
-          <li>· Estrategia clara antes de actuar</li>
-          <li>· Comunicación franca con el cliente</li>
-          <li>· Honorarios transparentes</li>
-        </ul>
-      </div>
+
+      <ul class="grid grid-cols-2 lg:grid-cols-4 hairline-grid" data-reveal-stagger="70">
+        {offices.map((o, i) => (
+          <li class="bg-bone-warm p-8 lg:p-10" data-reveal>
+            <span class="font-display text-sm tracking-[0.28em] text-gold-ink/70">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <p class="font-display text-2xl lg:text-[1.75rem] font-normal mt-5 leading-tight">
+              {o.city}
+            </p>
+            <p class="text-xs uppercase tracking-[0.16em] text-slate mt-2">{o.state}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 

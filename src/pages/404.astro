@@ -1,27 +1,39 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import { services } from "../data/site";
 ---
 
 <Layout title="Página no encontrada" canonicalPath="/404/">
-  <section class="container-prose py-24 lg:py-32 text-center">
-    <img
-      src="/logo.png"
-      alt="SBDefensa"
-      class="mx-auto h-24 w-auto mb-8 opacity-90"
-      width="200"
-      height="200"
-    />
-    <p class="eyebrow text-slate mb-4">Error 404</p>
-    <h1 class="font-serif text-4xl lg:text-5xl text-ink mb-6">
-      Página no encontrada
-    </h1>
-    <p class="text-slate mb-10 max-w-xl mx-auto">
-      La página que buscas no existe o fue movida. Te invitamos a volver al
-      inicio o explorar nuestros servicios.
+  <section class="shell py-section text-center">
+    <p class="font-display text-[7rem] lg:text-[10rem] leading-none font-light text-gold-ink/25 tnum">
+      404
     </p>
-    <div class="flex flex-wrap gap-4 justify-center">
-      <a href="/" class="btn-primary">Volver al inicio</a>
-      <a href="/contacto/" class="btn-secondary">Contáctanos</a>
+    <h1 class="text-h2 font-light -mt-4 mb-6">Página no encontrada</h1>
+    <p class="text-slate max-w-[46ch] mx-auto mb-10 leading-relaxed">
+      La página que buscas no existe o fue movida. Vuelve al inicio o entra
+      directo a un área de práctica.
+    </p>
+
+    <div class="flex flex-wrap gap-3 justify-center mb-16">
+      <a href="/" class="btn btn-primary">
+        Volver al inicio
+        <Icon name="arrow-right" size={17} stroke={1.5} />
+      </a>
+      <a href="/contacto/" class="btn btn-ghost">Contáctanos</a>
+    </div>
+
+    <div class="max-w-3xl mx-auto">
+      <p class="eyebrow justify-center mb-6">Áreas de práctica</p>
+      <ul class="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[0.9375rem]">
+        {services.map((s) => (
+          <li>
+            <a href={`/servicios/${s.slug}/`} class="link-line text-slate hover:text-ink transition-colors">
+              {s.name}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 </Layout>

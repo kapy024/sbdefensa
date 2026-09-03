@@ -2,20 +2,25 @@
 import { differentiators } from "../data/site";
 ---
 
-<section class="py-20 bg-bone-warm">
-  <div class="container-prose">
-    <div class="max-w-2xl mb-12">
-      <p class="eyebrow mb-3">Por qué SBDefensa</p>
-      <h2 class="text-4xl md:text-5xl">Una firma con respaldo institucional.</h2>
+<section class="py-section bg-bone-warm">
+  <div class="shell">
+    <div class="max-w-2xl mb-14" data-reveal>
+      <p class="eyebrow mb-5">Por qué SBDefensa</p>
+      <h2 class="text-h2 font-light">Una firma con respaldo institucional.</h2>
     </div>
 
-    <div class="grid gap-px bg-mist md:grid-cols-3 border border-mist">
-      {differentiators.map((d) => (
-        <div class="bg-bone p-8 lg:p-10">
-          <div class="w-10 h-px bg-gold mb-5"></div>
-          <h3 class="text-2xl mb-3">{d.title}</h3>
-          <p class="text-slate text-sm leading-relaxed">{d.desc}</p>
-        </div>
+    <div class="grid md:grid-cols-3 hairline-grid" data-reveal-stagger="90">
+      {differentiators.map((d, i) => (
+        <article class="group relative bg-bone-warm p-9 lg:p-11" data-reveal>
+          <span class="font-display text-base tracking-[0.28em] text-gold-ink">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <span
+            class="block h-px w-10 bg-gold mt-5 mb-7 origin-left transition-transform duration-500 ease-out group-hover:scale-x-[2.6]"
+          ></span>
+          <h3 class="text-h3 font-normal mb-4">{d.title}</h3>
+          <p class="text-slate text-[0.9375rem] leading-relaxed">{d.desc}</p>
+        </article>
       ))}
     </div>
   </div>
