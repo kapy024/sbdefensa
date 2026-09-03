@@ -2,116 +2,89 @@
 import { site, figures, authorities } from "../data/site";
 import Icon from "./Icon.astro";
 import Seal from "./Seal.astro";
+import MeshBackdrop from "./MeshBackdrop.astro";
 
 const waHref = `https://wa.me/${site.whatsapp}`;
 ---
 
 <section class="relative overflow-hidden">
-  <div class="absolute inset-0 -z-20 paper-panel"></div>
-  <div
-    class="aura absolute -z-20 -top-40 -left-40 w-[46rem] h-[46rem] rounded-full blur-3xl pointer-events-none"
-    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 26%, transparent) 0%, transparent 68%);"
-  >
-  </div>
+  <MeshBackdrop />
 
-  <!-- El sello queda detrás del titular, descentrado hacia la derecha.
-       El texto le pasa por encima: eso es lo que rompe la simetría. -->
-  <Seal class="pointer-events-none absolute -z-10 hidden lg:block w-[40rem] h-[40rem] right-[-8rem] top-[6rem] opacity-[0.78]" />
+  <Seal class="pointer-events-none absolute -z-[5] hidden lg:block w-[38rem] h-[38rem] right-[-7rem] top-[8rem] opacity-40" />
 
-  <div class="shell relative pt-16 pb-14 lg:pt-24 lg:pb-20">
-    <p class="eyebrow mb-8" data-reveal>Firma fundada en {site.foundedYear}</p>
+  <div class="shell relative pt-20 pb-16 lg:pt-28 lg:pb-20">
+    <p class="eyebrow mb-9" data-reveal>Firma fundada en {site.foundedYear}</p>
 
-    <!-- Cada línea entra más adentro que la anterior: escalera editorial,
-         no bloque centrado. -->
-    <h1 class="text-display font-light relative z-10 mb-12 lg:mb-14 lg:max-w-[60%]" data-split data-split-step="46">
+    <h1 class="text-display font-light relative z-10 mb-10 lg:mb-12" data-split data-split-step="46">
       <span class="block">Defensa legal</span>
-      <span class="block lg:pl-[4.5vw]">y contable</span>
-      <span class="block lg:pl-[9vw] italic font-normal text-gold-ink">para quien la necesita.</span>
+      <span class="block lg:pl-[5vw]">y contable</span>
+      <span class="block lg:pl-[11vw] italic font-normal text-gold-ink">para quien la necesita.</span>
     </h1>
 
-    <div class="grid gap-12 lg:grid-cols-12 lg:gap-x-12 items-start">
-      <!-- La columna de texto es angosta y se queda a la izquierda. -->
-      <div class="lg:col-span-5 relative z-10">
-        <p class="text-lead text-slate max-w-[42ch] mb-9" data-reveal>
-          Controvertimos créditos fiscales, multas y procedimientos administrativos
-          ante el SAT, IMSS, INFONAVIT, IMPI y autoridades aduaneras a nivel nacional.
-          Acompañamos a contribuyentes y empresariado con estrategia, no con improvisación.
-        </p>
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-x-12 items-end">
+      <p class="lg:col-span-6 text-lead text-slate max-w-[52ch]" data-reveal>
+        Controvertimos créditos fiscales, multas y procedimientos administrativos
+        ante el SAT, IMSS, INFONAVIT, IMPI y autoridades aduaneras a nivel nacional.
+        Acompañamos a contribuyentes y empresariado con estrategia, no con improvisación.
+      </p>
 
-        <div class="flex flex-wrap gap-3" data-reveal>
-          <a href="/contacto/" class="btn btn-primary">
-            Solicita una asesoría
-            <Icon name="arrow-right" size={17} stroke={1.5} />
-          </a>
-          <a href={waHref} target="_blank" rel="noopener" class="btn btn-ghost">
-            <Icon name="whatsapp" size={17} />
-            WhatsApp directo
-          </a>
-        </div>
-
-        <p class="mt-6 flex items-center gap-2.5 text-sm text-slate" data-reveal>
+      <div class="lg:col-span-6 flex flex-wrap items-center gap-3" data-reveal>
+        <a href="/contacto/" class="btn btn-primary">
+          Solicita una asesoría
+          <Icon name="arrow-right" size={17} stroke={1.5} />
+        </a>
+        <a href={waHref} target="_blank" rel="noopener" class="btn btn-ghost">
+          <Icon name="whatsapp" size={17} />
+          WhatsApp directo
+        </a>
+        <p class="w-full flex items-center gap-2.5 text-sm text-slate mt-1">
           <Icon name="clock" size={16} stroke={1.3} class="text-gold-ink" />
           Primera valoración del caso sin costo
         </p>
       </div>
+    </div>
 
-      <!-- La ficha arranca más abajo, se recorre a la derecha, se inclina
-           un grado y medio y se monta sobre la fila de cifras. -->
-      <aside
-        class="lg:col-span-6 lg:col-start-7 lg:mt-12 lg:-mb-32 parallax relative z-20"
-        data-parallax="0.05"
-        data-reveal
-      >
-        <div
-          class="on-ink ink-panel ink-panel-edge rounded-[var(--radius-xl)] text-bone p-9 lg:p-11 lg:rotate-[-1.5deg] transition-transform duration-700 ease-out hover:lg:rotate-0"
-        >
-          <div class="flex items-center justify-between mb-8">
-            <p class="eyebrow">Respaldo institucional</p>
-            <span class="font-display text-xs tracking-[0.3em] text-bone/60">01</span>
-          </div>
+    <!-- El respaldo institucional deja de ser una tarjeta negra: vive en el
+         flujo, como una nota editorial sobre el mismo papel. -->
+    <div
+      class="mt-16 lg:mt-20 grid gap-6 lg:grid-cols-12 lg:gap-x-12 border-t border-ink/10 pt-10"
+      data-reveal
+    >
+      <p class="eyebrow lg:col-span-3">Respaldo institucional</p>
 
-          <h2 class="font-display text-h3 text-bone leading-tight mb-7">
-            Doble visión:<br />
-            <span class="text-gold italic">defensor</span>
-            <span class="text-bone/60">y</span>
-            <span class="text-gold italic">juzgador</span>.
-          </h2>
-
-          <div class="rule-gold mb-7"></div>
-
-          <p class="text-bone/70 text-[0.9375rem] leading-relaxed mb-5">
-            Nuestra dirección combina experiencia del lado del contribuyente
-            (PRODECON, en Chihuahua y la Zona Norte) y del lado del juzgador
-            (Tribunal Federal de Justicia Fiscal y Administrativa).
-          </p>
-          <p class="text-bone/70 text-[0.9375rem] leading-relaxed">
-            Esa perspectiva poco común nos permite anticipar criterios y construir
-            argumentos que la autoridad y el tribunal sí escuchan.
-          </p>
-
-          <a
-            href="/nosotros/"
-            class="link-line inline-flex items-center gap-2 mt-8 text-sm text-gold-light"
-          >
-            Conoce a la dirección
-            <Icon name="arrow-up-right" size={15} stroke={1.5} />
-          </a>
-        </div>
-      </aside>
+      <div class="lg:col-span-9">
+        <p class="font-display text-[1.65rem] lg:text-[2.25rem] font-light leading-tight mb-5">
+          Doble visión:
+          <span class="italic text-gold-ink">defensor</span>
+          <span class="text-slate">y</span>
+          <span class="italic text-gold-ink">juzgador</span>.
+        </p>
+        <p class="text-slate leading-relaxed max-w-[64ch]">
+          Nuestra dirección combina experiencia del lado del contribuyente
+          (PRODECON, en Chihuahua y la Zona Norte) y del lado del juzgador
+          (Tribunal Federal de Justicia Fiscal y Administrativa). Esa perspectiva
+          poco común nos permite anticipar criterios y construir argumentos que
+          la autoridad y el tribunal sí escuchan.
+        </p>
+        <a href="/nosotros/" class="link-line inline-flex items-center gap-2 mt-6 text-sm text-gold-ink font-medium">
+          Conoce a la dirección
+          <Icon name="arrow-up-right" size={15} stroke={1.5} />
+        </a>
+      </div>
     </div>
   </div>
 
   <!-- ---------------- Ledger of figures ---------------- -->
-  <div class="shell relative lg:pt-24">
-    <div class="grid grid-cols-2 lg:grid-cols-4 lg:w-[68%] border-t border-mist" data-reveal-stagger="70">
+  <div class="shell relative">
+    <div class="grid grid-cols-2 lg:grid-cols-4 border-t border-ink/10" data-reveal-stagger="70">
       {figures.map((f, i) => (
         <div
           class:list={[
             "py-7 lg:py-9 lg:px-8 first:lg:pl-0",
-            i % 2 === 1 && "pl-6 border-l border-mist",
-            i >= 2 && "border-t border-mist lg:border-t-0",
-            i === 2 && "lg:border-l lg:border-mist",
-            i === 3 && "lg:border-l lg:border-mist",
+            i % 2 === 1 && "pl-6 border-l border-ink/10",
+            i >= 2 && "border-t border-ink/10 lg:border-t-0",
+            i === 2 && "lg:border-l lg:border-ink/10",
+            i === 3 && "lg:border-l lg:border-ink/10",
           ]}
           data-reveal
         >
@@ -127,13 +100,11 @@ const waHref = `https://wa.me/${site.whatsapp}`;
   </div>
 
   <!-- ---------------- Authorities ---------------- -->
-  <div class="border-y border-mist bg-bone/60 overflow-hidden">
+  <div class="border-y border-ink/10 overflow-hidden">
     <div class="shell pt-7 pb-3">
       <p class="text-[0.6875rem] uppercase tracking-[0.2em] text-slate">Litigamos ante</p>
     </div>
 
-    <!-- Marquesina: la lista va duplicada y la pista se desplaza -50%,
-         así el bucle es continuo. Se pausa al pasar el cursor. -->
     <div class="marquee pb-7 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
       <div class="marquee-track" style="--marquee-duration: 52s">
         {[0, 1].map((copy) => (

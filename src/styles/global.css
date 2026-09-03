@@ -36,7 +36,7 @@
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 
   /* Fluid display scale — 375px → 1440px */
-  --text-display: clamp(2.75rem, 1.6rem + 4.9vw, 5.75rem);
+  --text-display: clamp(3rem, 1.5rem + 6.4vw, 7.25rem);
   --text-display--line-height: 0.98;
   --text-h1: clamp(2.25rem, 1.45rem + 3.4vw, 4.25rem);
   --text-h1--line-height: 1.04;

@@ -1,0 +1,117 @@
+---
+/**
+ * Fondo de malla animada. Cinco manchas desenfocadas de la paleta que
+ * derivan a distinta velocidad, más un halo que sigue al cursor.
+ * CSS puro: el proyecto no carga una sola dependencia de JS.
+ */
+---
+
+<div class="mesh" aria-hidden="true">
+  <span class="mesh-blob mesh-a"></span>
+  <span class="mesh-blob mesh-b"></span>
+  <span class="mesh-blob mesh-c"></span>
+  <span class="mesh-blob mesh-d"></span>
+  <span class="mesh-blob mesh-e"></span>
+  <span class="mesh-cursor"></span>
+</div>
+
+<style>
+  .mesh {
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    background: var(--color-bone);
+  }
+
+  .mesh-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    will-change: transform;
+  }
+
+  /* Ámbar cálido arriba a la derecha: el foco de luz. */
+  .mesh-a {
+    width: 52vw; height: 52vw; top: -18vw; right: -10vw;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 62%, transparent), transparent 68%);
+    animation: float-a 24s ease-in-out infinite;
+  }
+  /* Oro pálido al centro: rellena el medio sin ensuciar el texto. */
+  .mesh-b {
+    width: 44vw; height: 44vw; top: 8vw; left: 22vw;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-gold-light) 55%, transparent), transparent 70%);
+    animation: float-b 31s ease-in-out infinite;
+  }
+  /* Arena a la izquierda: peso en el lado del titular. */
+  .mesh-c {
+    width: 40vw; height: 40vw; top: -6vw; left: -14vw;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-bone-deep) 92%, transparent), transparent 66%);
+    animation: float-c 27s ease-in-out infinite;
+  }
+  /* Oro profundo abajo: ancla la composición. */
+  .mesh-d {
+    width: 46vw; height: 46vw; bottom: -20vw; left: 8vw;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-gold-deep) 34%, transparent), transparent 70%);
+    animation: float-d 35s ease-in-out infinite;
+  }
+  /* Un toque de tinta, muy diluido: da contraste sin ensuciar. */
+  .mesh-e {
+    width: 34vw; height: 34vw; bottom: -12vw; right: 6vw;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-ink) 12%, transparent), transparent 68%);
+    animation: float-e 29s ease-in-out infinite;
+  }
+
+  /* Halo que sigue al puntero. Las coordenadas las escribe el script. */
+  .mesh-cursor {
+    position: absolute;
+    width: 34rem; height: 34rem;
+    left: var(--mx, 50%); top: var(--my, 40%);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-gold-light) 58%, transparent), transparent 66%);
+    transition: opacity 900ms var(--ease-out-quint);
+  }
+
+  .mesh[data-pointer] .mesh-cursor { opacity: 1; }
+
+  @keyframes float-a { 0%,100% { transform: none } 50% { transform: translate3d(-7vw, 5vw, 0) scale(1.14) } }
+  @keyframes float-b { 0%,100% { transform: none } 50% { transform: translate3d(6vw, -4vw, 0) scale(0.88) } }
+  @keyframes float-c { 0%,100% { transform: none } 50% { transform: translate3d(5vw, 6vw, 0) scale(1.1) } }
+  @keyframes float-d { 0%,100% { transform: none } 50% { transform: translate3d(9vw, -6vw, 0) scale(1.05) } }
+  @keyframes float-e { 0%,100% { transform: none } 50% { transform: translate3d(-6vw, -5vw, 0) scale(1.2) } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mesh-blob { animation: none !important; }
+    .mesh-cursor { display: none; }
+  }
+</style>
+
+<script>
+  function meshPointer() {
+    const mesh = document.querySelector<HTMLElement>(".mesh");
+    if (!mesh) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+    let raf = 0;
+    window.addEventListener(
+      "pointermove",
+      (e) => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          const r = mesh.getBoundingClientRect();
+          mesh.style.setProperty("--mx", `${e.clientX - r.left}px`);
+          mesh.style.setProperty("--my", `${e.clientY - r.top}px`);
+          mesh.dataset.pointer = "";
+        });
+      },
+      { passive: true }
+    );
+  }
+
+  document.addEventListener("astro:page-load", meshPointer);
+</script>
