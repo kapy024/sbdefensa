@@ -3,24 +3,30 @@ import { audiences } from "../data/site";
 import Icon from "./Icon.astro";
 ---
 
-<section class="on-ink ink-panel text-bone py-section">
-  <div class="shell">
-    <div class="max-w-2xl mb-14" data-reveal>
-      <p class="eyebrow mb-5">A quién acompañamos</p>
-      <h2 data-split data-split-step="34" class="text-h2 font-light text-bone">
+<section class="py-section bg-bone-warm relative overflow-hidden">
+  <div
+    class="aura absolute -z-0 -top-40 right-[-10rem] w-[40rem] h-[40rem] rounded-full blur-3xl pointer-events-none"
+    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 22%, transparent) 0%, transparent 68%);"
+  >
+  </div>
+
+  <div class="shell relative z-10">
+    <div class="max-w-2xl mb-14">
+      <p class="eyebrow mb-5" data-reveal>A quién acompañamos</p>
+      <h2 data-split data-split-step="34" class="text-h2 font-light">
         Personas, empresas y comercio internacional.
       </h2>
     </div>
 
-    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger="80">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger="80">
       {audiences.map((a) => (
-        <div class="group border-t border-gold/45 pt-7" data-reveal>
-          <span class="block text-gold mb-6 transition-transform duration-500 ease-out group-hover:-translate-y-1">
-            <Icon name={a.icon} size={30} stroke={1.25} />
+        <article class="card card-hover p-8 lg:p-9 flex flex-col" data-reveal>
+          <span class="text-gold-ink mb-7">
+            <Icon name={a.icon} size={32} stroke={1.2} />
           </span>
-          <h3 class="text-h3 font-normal text-bone mb-3.5">{a.name}</h3>
-          <p class="text-bone/65 text-[0.9375rem] leading-relaxed">{a.desc}</p>
-        </div>
+          <h3 class="text-h3 font-normal mb-3.5">{a.name}</h3>
+          <p class="text-slate text-[0.9375rem] leading-relaxed">{a.desc}</p>
+        </article>
       ))}
     </div>
   </div>

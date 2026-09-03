@@ -1,5 +1,5 @@
 ---
-/** Masthead for inner pages: ink panel, eyebrow, display title, lead. */
+/** Masthead de páginas internas: papel con malla, no bloque de tinta. */
 interface Props {
   eyebrow: string;
   index?: string;
@@ -8,12 +8,19 @@ interface Props {
 const { eyebrow, index, back } = Astro.props;
 ---
 
-<section class="on-ink ink-panel text-bone rounded-b-[var(--radius-xl)] shadow-ink relative z-10">
-  <div class="shell pt-14 pb-16 lg:pt-20 lg:pb-24">
+<section class="relative overflow-hidden border-b border-ink/10">
+  <div class="absolute inset-0 -z-10 paper-panel"></div>
+  <div
+    class="aura absolute -z-10 -top-40 right-[-8rem] w-[40rem] h-[40rem] rounded-full blur-3xl pointer-events-none"
+    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 30%, transparent) 0%, transparent 68%);"
+  >
+  </div>
+
+  <div class="shell relative pt-14 pb-16 lg:pt-20 lg:pb-24">
     {back && (
       <a
         href={back.href}
-        class="link-line inline-flex items-center gap-2 text-[0.6875rem] uppercase tracking-[0.18em] text-gold-light mb-10"
+        class="link-line inline-flex items-center gap-2 text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink font-semibold mb-10"
       >
         <span aria-hidden="true">&larr;</span> {back.label}
       </a>
@@ -22,17 +29,17 @@ const { eyebrow, index, back } = Astro.props;
     <div class="flex items-start justify-between gap-8">
       <p class="eyebrow mb-7">{eyebrow}</p>
       {index && (
-        <span class="font-display text-xs tracking-[0.3em] text-bone/60 pt-1">{index}</span>
+        <span class="font-display text-xs tracking-[0.3em] text-slate pt-1">{index}</span>
       )}
     </div>
 
-    <h1 class="text-h1 font-light text-bone max-w-[18ch] mb-8">
+    <h1 data-split data-split-step="40" class="text-h1 font-light max-w-[18ch] mb-8">
       <slot name="title" />
     </h1>
 
     <div class="rule-gold mb-8 max-w-sm"></div>
 
-    <div class="text-lead text-bone/75 max-w-[58ch] leading-relaxed">
+    <div class="text-lead text-slate max-w-[58ch] leading-relaxed">
       <slot />
     </div>
   </div>

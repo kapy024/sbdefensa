@@ -7,28 +7,48 @@ const waHref = `https://wa.me/${site.whatsapp}`;
 
 <section class="py-section-sm">
   <div class="shell">
-    <div class="on-ink ink-panel ink-panel-edge rounded-[var(--radius-xl)] text-bone p-10 lg:p-16 relative overflow-hidden" data-reveal>
-      <div class="relative max-w-3xl">
-        <p class="eyebrow mb-6">¿Tienes un asunto urgente?</p>
+    <!-- La urgencia ya no se pinta de negro: se pinta de oro. Tinta sobre
+         oro da 6:1 o más, así que el contraste sube en vez de bajar. -->
+    <div
+      class="rounded-[var(--radius-xl)] p-10 lg:p-16 relative overflow-hidden shadow-lift"
+      style="background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 52%, var(--color-gold-deep) 100%);"
+      data-reveal
+    >
+      <div
+        class="aura absolute inset-0 pointer-events-none opacity-60"
+        style="background: radial-gradient(70% 90% at 88% 8%, color-mix(in srgb, white 45%, transparent) 0%, transparent 62%);"
+      >
+      </div>
 
-        <h2 data-split data-split-step="34" class="text-h2 font-light text-bone mb-7 leading-[1.08]">
+      <div class="relative max-w-3xl">
+        <p class="flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-ink mb-6">
+          <span class="h-px w-7 bg-ink/40"></span>
+          ¿Tienes un asunto urgente?
+        </p>
+
+        <h2 data-split data-split-step="34" class="text-h2 font-light text-ink mb-7 leading-[1.08]">
           Los plazos para impugnar son fatales.
-          <span class="block italic text-gold">No los dejes correr.</span>
+          <span class="block italic">No los dejes correr.</span>
         </h2>
 
-        <div class="rule-gold mb-8 max-w-sm"></div>
+        <div class="h-px w-full max-w-sm bg-ink/25 mb-8"></div>
 
-        <p class="text-bone/75 leading-relaxed mb-9 text-lead max-w-xl">
+        <p class="text-ink/85 leading-relaxed mb-9 text-lead max-w-xl">
           Si recibiste una notificación del SAT, IMSS, INFONAVIT o aduana,
           contáctanos cuanto antes. La primera valoración es sin costo.
         </p>
 
         <div class="flex flex-wrap gap-3">
-          <a href="/contacto/" class="btn btn-gold">
+          <a href="/contacto/" class="btn btn-primary">
             Solicita asesoría
             <Icon name="arrow-right" size={17} stroke={1.5} />
           </a>
-          <a href={waHref} target="_blank" rel="noopener" class="btn btn-on-ink">
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener"
+            class="btn bg-transparent text-ink border-ink/35 hover:bg-ink hover:text-bone hover:border-ink"
+          >
             <Icon name="whatsapp" size={17} />
             WhatsApp directo
           </a>

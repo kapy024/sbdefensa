@@ -7,77 +7,74 @@ const waHref = `https://wa.me/${site.whatsapp}`;
 const half = Math.ceil(services.length / 2);
 ---
 
-<footer class="on-ink ink-panel text-bone">
-  <div class="shell pt-section-sm pb-12">
+<footer class="bg-bone-warm border-t border-ink/10 relative overflow-hidden">
+  <div
+    class="aura absolute -z-0 -bottom-56 left-[-8rem] w-[42rem] h-[42rem] rounded-full blur-3xl pointer-events-none"
+    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 20%, transparent) 0%, transparent 68%);"
+  >
+  </div>
+
+  <div class="shell relative z-10 pt-section-sm pb-12">
     <div class="grid gap-12 lg:grid-cols-12 lg:gap-x-14">
-      <!-- Identity -->
       <div class="lg:col-span-4">
-        <img src="/logo.png" alt={site.legalName} width="200" height="56" class="h-12 w-auto invert brightness-110 mb-7" />
-        <p class="text-[0.9375rem] text-bone/65 leading-relaxed max-w-[34ch]">
+        <img src="/logo.png" alt={site.legalName} width="200" height="56" class="h-12 w-auto mb-7" />
+        <p class="text-[0.9375rem] text-slate leading-relaxed max-w-[34ch]">
           {site.legalName}. Firma fundada en {site.foundedYear}.
         </p>
         <div class="rule-gold my-7 max-w-[12rem]"></div>
-        <p class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60">
-          {site.coverage}
-        </p>
+        <p class="text-[0.6875rem] uppercase tracking-[0.18em] text-slate">{site.coverage}</p>
       </div>
 
-      <!-- Services -->
       <nav class="lg:col-span-5 grid grid-cols-2 gap-x-8" aria-label="Áreas de práctica">
         <div>
-          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mb-5">Servicios</h2>
-          <ul class="space-y-3 text-[0.9375rem] text-bone/70">
+          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mb-5">Servicios</h2>
+          <ul class="space-y-3 text-[0.9375rem] text-slate">
             {services.slice(0, half).map((s) => (
               <li>
-                <a href={`/servicios/${s.slug}/`} class="link-line hover:text-gold transition-colors">
-                  {s.name}
-                </a>
+                <a href={`/servicios/${s.slug}/`} class="link-line hover:text-ink transition-colors">{s.name}</a>
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mb-5">Más áreas</h2>
-          <ul class="space-y-3 text-[0.9375rem] text-bone/70">
+          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mb-5">Más áreas</h2>
+          <ul class="space-y-3 text-[0.9375rem] text-slate">
             {services.slice(half).map((s) => (
               <li>
-                <a href={`/servicios/${s.slug}/`} class="link-line hover:text-gold transition-colors">
-                  {s.name}
-                </a>
+                <a href={`/servicios/${s.slug}/`} class="link-line hover:text-ink transition-colors">{s.name}</a>
               </li>
             ))}
           </ul>
-          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mt-8 mb-5">Firma</h2>
-          <ul class="space-y-3 text-[0.9375rem] text-bone/70">
-            <li><a href="/nosotros/" class="link-line hover:text-gold transition-colors">Nosotros</a></li>
-            <li><a href="/contacto/" class="link-line hover:text-gold transition-colors">Contacto</a></li>
+          <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mt-8 mb-5">Firma</h2>
+          <ul class="space-y-3 text-[0.9375rem] text-slate">
+            <li><a href="/nosotros/" class="link-line hover:text-ink transition-colors">Nosotros</a></li>
+            <li><a href="/contacto/" class="link-line hover:text-ink transition-colors">Contacto</a></li>
           </ul>
         </div>
       </nav>
 
-      <!-- Contact -->
       <div class="lg:col-span-3">
-        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mb-5">Contacto</h2>
-        <ul class="space-y-4 text-sm text-bone/70">
+        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mb-5">Contacto</h2>
+        <ul class="space-y-4 text-sm text-slate">
           <li>
-            <a href={`mailto:${site.email}`} class="flex items-start gap-3 hover:text-gold transition-colors">
-              <Icon name="mail" size={17} stroke={1.3} class="mt-0.5 shrink-0" />
+            <a href={`mailto:${site.email}`} class="flex items-start gap-3 hover:text-ink transition-colors">
+              <Icon name="mail" size={17} stroke={1.3} class="mt-0.5 shrink-0 text-gold-ink" />
               <span class="[overflow-wrap:anywhere]">{site.email}</span>
             </a>
           </li>
           <li>
-            <a href={waHref} target="_blank" rel="noopener" class="flex items-center gap-3 hover:text-gold transition-colors">
-              <Icon name="whatsapp" size={16} />
+            <a href={waHref} target="_blank" rel="noopener" class="flex items-center gap-3 hover:text-ink transition-colors">
+              <Icon name="whatsapp" size={16} class="text-gold-ink" />
               {site.whatsappDisplay}
             </a>
           </li>
         </ul>
 
-        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-bone/60 mt-8 mb-5">Sedes</h2>
-        <ul class="space-y-2.5 text-[0.9375rem] text-bone/70">
+        <h2 class="text-[0.6875rem] uppercase tracking-[0.18em] text-gold-ink mt-8 mb-5">Sedes</h2>
+        <ul class="space-y-2.5 text-[0.9375rem] text-slate">
           {offices.map((o) => (
             <li class="flex items-center gap-2.5">
-              <span class="h-px w-3 bg-gold/60"></span>
+              <span class="h-px w-3 bg-gold"></span>
               {o.city}
             </li>
           ))}
@@ -86,12 +83,10 @@ const half = Math.ceil(services.length / 2);
     </div>
   </div>
 
-  <div class="border-t border-bone/10">
-    <div class="shell py-6 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center text-xs text-bone/60">
+  <div class="border-t border-ink/10 relative z-10">
+    <div class="shell py-6 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center text-xs text-slate">
       <p>© {year} {site.legalName}. Todos los derechos reservados.</p>
-      <a href="/aviso-de-privacidad/" class="link-line hover:text-gold transition-colors">
-        Aviso de Privacidad
-      </a>
+      <a href="/aviso-de-privacidad/" class="link-line hover:text-ink transition-colors">Aviso de Privacidad</a>
     </div>
   </div>
 </footer>

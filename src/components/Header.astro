@@ -10,17 +10,17 @@ const nav = [
 ---
 
 <!-- Utility strip: contact always one glance away on desktop. -->
-<div class="on-ink hidden lg:block bg-ink text-bone/70 text-xs">
+<div class="hidden lg:block bg-bone-deep/70 border-b border-ink/10 text-slate text-xs">
   <div class="shell flex items-center justify-between h-9">
     <p class="tracking-[0.14em] uppercase text-[0.6875rem]">
       {site.coverage} · Sedes en {site.location}
     </p>
     <div class="flex items-center gap-6">
-      <a href={`mailto:${site.email}`} class="flex items-center gap-2 hover:text-gold transition-colors">
+      <a href={`mailto:${site.email}`} class="flex items-center gap-2 hover:text-gold-ink transition-colors">
         <Icon name="mail" size={14} stroke={1.3} />
         {site.email}
       </a>
-      <a href={waHref} target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-gold transition-colors">
+      <a href={waHref} target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-gold-ink transition-colors">
         <Icon name="whatsapp" size={13} />
         {site.whatsappDisplay}
       </a>
