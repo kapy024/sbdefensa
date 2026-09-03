@@ -9,6 +9,11 @@ const waHref = `https://wa.me/${site.whatsapp}`;
   <!-- Warm wash + a faint column grid: the page reads as a printed sheet. -->
   <div class="absolute inset-0 -z-10 paper-panel"></div>
   <div
+    class="aura absolute -z-10 -top-40 -right-32 w-[46rem] h-[46rem] rounded-full blur-3xl pointer-events-none"
+    style="background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 30%, transparent) 0%, transparent 68%);"
+  >
+  </div>
+  <div
     class="absolute inset-0 -z-10 hidden lg:block opacity-[0.55]"
     style="background-image: repeating-linear-gradient(to right, transparent 0 calc(12.5% - 1px), var(--color-mist) calc(12.5% - 1px) 12.5%); mask-image: linear-gradient(to bottom, transparent, black 18%, black 72%, transparent);"
   >
@@ -20,7 +25,7 @@ const waHref = `https://wa.me/${site.whatsapp}`;
       <div class="lg:col-span-7" data-reveal-stagger="90">
         <p class="eyebrow mb-7" data-reveal>Firma fundada en {site.foundedYear}</p>
 
-        <h1 class="text-display font-light mb-8 max-w-[13ch]" data-reveal>
+        <h1 class="text-display font-light mb-8 max-w-[13ch]" data-split data-split-step="48">
           Defensa legal y contable
           <span class="block italic font-normal text-gold-ink">para quien la necesita.</span>
         </h1>
@@ -49,7 +54,7 @@ const waHref = `https://wa.me/${site.whatsapp}`;
       </div>
 
       <!-- ---------------- Dossier ---------------- -->
-      <aside class="lg:col-span-5 lg:pt-3" data-reveal>
+      <aside class="lg:col-span-5 lg:pt-3 parallax" data-parallax="0.055" data-reveal>
         <div class="on-ink ink-panel text-bone p-9 lg:p-11 shadow-ink">
           <div class="flex items-center justify-between mb-8">
             <p class="eyebrow">Respaldo institucional</p>
@@ -102,7 +107,7 @@ const waHref = `https://wa.me/${site.whatsapp}`;
           data-reveal
         >
           <div class="font-display text-4xl lg:text-5xl font-light text-ink leading-none">
-            {f.value}<span class="text-gold-ink">{f.suffix}</span>
+            <span data-count={f.value}>0</span><span class="text-gold-ink">{f.suffix}</span>
           </div>
           <div class="text-[0.6875rem] uppercase tracking-[0.16em] text-slate mt-3">
             {f.label}
@@ -113,23 +118,30 @@ const waHref = `https://wa.me/${site.whatsapp}`;
   </div>
 
   <!-- ---------------- Authorities ---------------- -->
-  <div class="border-y border-mist bg-bone/60">
-    <div class="shell py-7">
-      <p class="text-[0.6875rem] uppercase tracking-[0.2em] text-slate mb-5">
-        Litigamos ante
-      </p>
-      <ul class="flex flex-wrap items-center gap-x-8 gap-y-3.5">
-        {authorities.map((a) => (
-          <li>
-            <abbr
-              title={a.full}
-              class="font-display text-xl lg:text-2xl tracking-[0.06em] text-ink/55 no-underline hover:text-ink transition-colors duration-300"
-            >
-              {a.abbr}
-            </abbr>
-          </li>
+  <div class="border-y border-mist bg-bone/60 overflow-hidden">
+    <div class="shell pt-7 pb-3">
+      <p class="text-[0.6875rem] uppercase tracking-[0.2em] text-slate">Litigamos ante</p>
+    </div>
+
+    <!-- Marquesina: la lista va duplicada y la pista se desplaza -50%,
+         así el bucle es continuo. Se pausa al pasar el cursor. -->
+    <div class="marquee pb-7 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
+      <div class="marquee-track" style="--marquee-duration: 52s">
+        {[0, 1].map((copy) => (
+          <ul class="flex items-center gap-x-12 pr-12" aria-hidden={copy === 1 ? "true" : undefined}>
+            {authorities.map((a) => (
+              <li class="shrink-0">
+                <abbr
+                  title={a.full}
+                  class="font-display text-2xl lg:text-[1.75rem] tracking-[0.06em] text-ink/55 no-underline hover:text-ink transition-colors duration-300"
+                >
+                  {a.abbr}
+                </abbr>
+              </li>
+            ))}
+          </ul>
         ))}
-      </ul>
+      </div>
     </div>
   </div>
 </section>

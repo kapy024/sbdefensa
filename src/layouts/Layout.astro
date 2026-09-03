@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { ClientRouter } from "astro:transitions";
 import { site, offices, services } from "../data/site";
 
 interface Props {
@@ -76,12 +77,19 @@ const jsonLd = {
       rel="stylesheet"
     />
 
+    <ClientRouter />
+
     <script is:inline set:html={JSON.stringify(jsonLd)} type="application/ld+json" />
 
     {/* Flag JS before first paint so reveal styles never hide content
         for users without scripts. */}
     <script is:inline>
       document.documentElement.classList.add("has-js");
+      // Inline a propósito: un módulo puede fallar al descargarse, esto no.
+      // Si el motor de movimiento no confirma en 5s, se muestra todo.
+      window.__motionFailsafe = setTimeout(function () {
+        document.documentElement.classList.add("motion-off");
+      }, 5000);
     </script>
   </head>
 
@@ -93,24 +101,90 @@ const jsonLd = {
       Saltar al contenido
     </a>
 
+    <div id="scroll-progress" aria-hidden="true"></div>
+
     <Header />
-    <main id="main">
+    <main id="main" transition:animate="fade">
       <slot />
     </main>
     <Footer />
 
     <script>
-      // Scroll reveal. Elements opt in with [data-reveal]; an optional
-      // [data-reveal-stagger] on a parent cascades its children.
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const targets = document.querySelectorAll<HTMLElement>("[data-reveal]");
+      const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      if (reduced || !("IntersectionObserver" in window)) {
-        targets.forEach((el) => el.classList.add("is-in"));
-      } else {
-        document.querySelectorAll<HTMLElement>("[data-reveal-stagger]").forEach((group) => {
+      /* ---------- Word split -------------------------------------------
+         Wraps every word in a clipped box so text rises into view instead
+         of fading. Walks the tree instead of touching textContent, so
+         inline markup (<span class="italic">…) survives intact. ---------- */
+      function splitWords(root) {
+        if (root.dataset.splitDone) return;
+
+        const wrap = (node) => {
+          const frag = document.createDocumentFragment();
+          node.textContent.split(/(\s+)/).forEach((chunk) => {
+            if (!chunk) return;
+            if (/^\s+$/.test(chunk)) {
+              frag.appendChild(document.createTextNode(chunk));
+              return;
+            }
+            const outer = document.createElement("span");
+            outer.className = "split-line split-word";
+            const inner = document.createElement("span");
+            inner.className = "split-inner";
+            inner.textContent = chunk;
+            outer.appendChild(inner);
+            frag.appendChild(outer);
+          });
+          node.replaceWith(frag);
+        };
+
+        const walk = (el) => {
+          [...el.childNodes].forEach((n) => {
+            if (n.nodeType === 3 && n.textContent.trim()) wrap(n);
+            else if (n.nodeType === 1) walk(n);
+          });
+        };
+
+        walk(root);
+        root.querySelectorAll(".split-inner").forEach((el, i) => {
+          el.style.setProperty("--split-delay", `${i * (Number(root.dataset.splitStep) || 42)}ms`);
+        });
+        root.dataset.splitDone = "1";
+        root.classList.add("is-split");
+      }
+
+      /* ---------- Counters --------------------------------------------- */
+      function countUp(el) {
+        const target = Number(el.dataset.count);
+        if (!Number.isFinite(target)) return;
+        const dur = 1100;
+        const t0 = performance.now();
+        const tick = (now) => {
+          const p = Math.min((now - t0) / dur, 1);
+          // ease-out-quint, so it decelerates into the final number
+          el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 5))));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+
+      function init() {
+        const reveals = document.querySelectorAll("[data-reveal]");
+        const splits = document.querySelectorAll("[data-split]");
+        const counters = document.querySelectorAll("[data-count]");
+
+        if (REDUCED || !("IntersectionObserver" in window)) {
+          reveals.forEach((el) => el.classList.add("is-in"));
+          splits.forEach((el) => el.classList.add("is-split", "is-in"));
+          counters.forEach((el) => (el.textContent = el.dataset.count));
+          return;
+        }
+
+        splits.forEach(splitWords);
+
+        document.querySelectorAll("[data-reveal-stagger]").forEach((group) => {
           const step = Number(group.dataset.revealStagger) || 60;
-          group.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el, i) => {
+          group.querySelectorAll("[data-reveal]").forEach((el, i) => {
             el.style.setProperty("--reveal-delay", `${i * step}ms`);
           });
         });
@@ -119,22 +193,63 @@ const jsonLd = {
           (entries) => {
             entries.forEach((entry) => {
               if (!entry.isIntersecting) return;
-              entry.target.classList.add("is-in");
-              io.unobserve(entry.target);
+              const el = entry.target;
+              el.classList.add("is-in");
+              if (el.dataset.count !== undefined) countUp(el);
+              io.unobserve(el);
             });
           },
-          { rootMargin: "0px 0px -12% 0px", threshold: 0.05 }
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.05 }
         );
 
-        targets.forEach((el) => io.observe(el));
+        [...reveals, ...splits, ...counters].forEach((el) => io.observe(el));
 
-        // Failsafe: if anything is still hidden after 4s (script error,
-        // throttled observer, restored tab), show it. Content must never
-        // be stuck invisible.
+        // Failsafe: content must never be left invisible.
         window.setTimeout(() => {
-          targets.forEach((el) => el.classList.add("is-in"));
-        }, 4000);
+          reveals.forEach((el) => el.classList.add("is-in"));
+          splits.forEach((el) => el.classList.add("is-split", "is-in"));
+        }, 4500);
       }
+
+      /* ---------- Scroll-driven: progress bar + parallax ---------------- */
+      function scrollFx() {
+        const bar = document.getElementById("scroll-progress");
+        const layers = document.querySelectorAll("[data-parallax]");
+        if (!bar && !layers.length) return;
+
+        let ticking = false;
+        const frame = () => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          if (bar) bar.style.setProperty("--progress", max > 0 ? String(window.scrollY / max) : "0");
+
+          if (!REDUCED) {
+            const mid = window.innerHeight / 2;
+            layers.forEach((el) => {
+              const r = el.getBoundingClientRect();
+              const speed = Number(el.dataset.parallax) || 0.06;
+              el.style.setProperty("--par-y", `${(r.top + r.height / 2 - mid) * -speed}px`);
+            });
+          }
+          ticking = false;
+        };
+
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(frame);
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        frame();
+      }
+
+      // Re-run on every view transition, not just first load.
+      document.addEventListener("astro:page-load", () => {
+        clearTimeout(window.__motionFailsafe);
+        init();
+        scrollFx();
+      });
     </script>
   </body>
 </html>

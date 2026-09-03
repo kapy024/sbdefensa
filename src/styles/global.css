@@ -366,3 +366,120 @@
 
   .balance { text-wrap: balance; }
 }
+
+/* ============================================================
+   Motion layer
+   Everything here is opt-in per element and disabled wholesale
+   by the prefers-reduced-motion block in @layer base.
+   ============================================================ */
+
+@layer utilities {
+  /* --- Line/word mask reveal ------------------------------
+     Text rises out of a clipped box instead of fading in.
+     Split into spans by the motion engine at runtime. -------- */
+  .has-js [data-split] { visibility: hidden; }
+
+  /* Rescate: si el módulo de movimiento no llega a ejecutarse (error de red,
+     fallo de bundle), un script inline enciende .motion-off y todo se vuelve
+     visible. El contenido nunca depende de que el JS cargue. */
+  .motion-off [data-split] { visibility: visible !important; }
+  .motion-off .split-inner { transform: none !important; opacity: 1 !important; }
+  .motion-off [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .has-js [data-split].is-split { visibility: visible; }
+
+  .split-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  /* Per-word boxes must stay inline so the headline still wraps. */
+  .split-word {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .split-inner {
+    display: inline-block;
+    will-change: transform;
+    transform: translateY(110%) rotate(2.5deg);
+    transform-origin: left top;
+    transition:
+      transform 1s var(--ease-out-quint) var(--split-delay, 0ms),
+      opacity 1s var(--ease-out-quint) var(--split-delay, 0ms);
+    opacity: 0;
+  }
+
+  .is-in .split-inner {
+    transform: none;
+    opacity: 1;
+  }
+
+  /* --- Drifting aura -------------------------------------- */
+  @keyframes drift {
+    0%,  100% { transform: translate3d(0, 0, 0) scale(1); }
+    33%       { transform: translate3d(4%, -3%, 0) scale(1.08); }
+    66%       { transform: translate3d(-3%, 3%, 0) scale(0.96); }
+  }
+
+  .aura {
+    animation: drift 26s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* --- Marquee -------------------------------------------- */
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 46s) linear infinite;
+    will-change: transform;
+  }
+
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .aura { animation: none; }
+  }
+
+  /* --- Sweep on buttons ----------------------------------- */
+  .btn { position: relative; overflow: hidden; isolation: isolate; }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transform: translateY(101%);
+    transition: transform 0.45s var(--ease-out-quint);
+  }
+
+  .btn-primary::after { background: var(--color-gold-ink); }
+  .btn-gold::after    { background: var(--color-gold-light); }
+  .btn-ghost::after   { background: color-mix(in srgb, var(--color-ink) 6%, transparent); }
+  .btn-on-ink::after  { background: var(--color-bone); }
+
+  .btn:hover::after { transform: translateY(0); }
+
+  /* --- Scroll progress ------------------------------------ */
+  #scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(var(--progress, 0));
+    transform-origin: left;
+    background: linear-gradient(90deg, var(--color-gold-deep), var(--color-gold));
+    z-index: 60;
+    pointer-events: none;
+  }
+
+  /* --- Parallax ------------------------------------------- */
+  .parallax { will-change: transform; transform: translate3d(0, var(--par-y, 0px), 0); }
+}
