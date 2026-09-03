@@ -83,6 +83,27 @@ Casi todo el contenido vive en `src/data/site.ts`:
 
 Editar `site.ts` y `npm run build` para regenerar.
 
+## Preview sin tocar producción
+
+Cualquier push a una rama que **no** sea `main` publica un preview en GitHub Pages:
+
+    https://kapy024.github.io/sbdefensa/
+
+Lo hace `.github/workflows/preview-pages.yml`. Producción (HostGator) sigue
+dependiendo únicamente de `deploy.yml`, que solo escucha `main`.
+
+- El preview lleva `<meta name="robots" content="noindex, nofollow">` (se
+  activa con `PUBLIC_PREVIEW=1` en el build) para no competir con el sitio real.
+- Pages sirve en la subruta `/sbdefensa/` y el sitio usa rutas absolutas de
+  raíz, así que `scripts/prefix-base.mjs` reescribe `href/src/srcset/url()`
+  en `dist/` después del build. Producción no lo ejecuta.
+- El entorno `github-pages` tiene política de ramas: `main` y `rediseno/*`.
+  Para publicar preview desde otra familia de ramas, agrega la regla en
+  Settings → Environments → github-pages, o con
+  `gh api -X POST repos/kapy024/sbdefensa/environments/github-pages/deployment-branch-policies -f name='feature/*' -f type=branch`.
+- El repo es público desde 2026-09-03 para que Pages funcione en el plan Free.
+  Las credenciales FTP viven en Actions Secrets, no en el código.
+
 ## Despliegue
 
 Sitio estático servido desde HostGator (`public_html/`). Cada push a `main` dispara el workflow `.github/workflows/deploy.yml` que compila y sube por FTPS vía [SamKirkland/FTP-Deploy-Action](https://github.com/SamKirkland/FTP-Deploy-Action).
